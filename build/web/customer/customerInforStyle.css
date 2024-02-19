@@ -1,0 +1,115 @@
+body {
+    background: #f3e0e2;
+    height: 500vh;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.dropdownmenu {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 50px;
+}
+
+.logo {
+    color: white;
+    font-weight: bold;
+    font-size: 23px;
+    padding-left: 50px;
+}
+
+.logo::before{
+    content: "SHOP";
+    color: red;
+}
+
+.menu-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu-items li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.dropdownmenu .menu-items li a {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.menu-items a {
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px/20px sans-serif;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .25s ease;
+}
+
+.dropdownmenu li:hover a {
+    color: red;
+}
+
+#submenu {
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+}
+
+li:hover ul#submenu {
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+}
+
+#submenu li {
+    width: 100%;
+}
+
+#submenu a:hover {
+    background: #DF4B05;
+}
+
+#submenu a {
+    background-color: #000000;
+}
+
+.user-row {
+  margin-bottom: 14px;
+}
+
+.table-user-information > tbody > tr {
+  border-top: 1px solid #ccc;
+}
+
+.table-user-information > tbody > tr:first-child {
+  border-top: 0;
+}
+
+.table-user-information > tbody > tr > td {
+  border-top: 0;
+}
+
+.panel {
+  margin-top: 20px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

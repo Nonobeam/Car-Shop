@@ -1,0 +1,442 @@
+/* Reset default browser styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f3e0e2;
+    height: fit-content;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+header {
+}
+
+.user-info {
+}
+
+.dropdownmenu {
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 50px;
+}
+
+.logo {
+    color: white;
+    font-weight: bold;
+    font-size: 23px;
+    padding-left: 50px;
+}
+
+.logo::before{
+    content: "SHOP";
+    color: red;
+}
+
+.menu-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu-items li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.dropdownmenu .menu-items li a {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.menu-items a {
+    color: #FFFFFF;
+    display: block;
+    font: bold 12px/20px sans-serif;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .25s ease;
+}
+
+.dropdownmenu li:hover a {
+    color: red;
+}
+
+#submenu {
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+}
+
+li:hover ul#submenu {
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+}
+
+#submenu li {
+    width: 100%;
+}
+
+#submenu a:hover {
+    background: #DF4B05;
+}
+
+#submenu a {
+    background-color: #000000;
+}
+
+.register-login {
+    padding-right: 10px;
+}
+
+.register-login a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.register-login a:hover {
+    color: red; /* Change color on hover */
+}
+
+.register-login a + a {
+    margin-left: 5px; /* Adjust spacing between register and login links */
+}
+
+.customer-link{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.customer-btn{
+    color: white;
+}
+
+.content {
+    background-color: #f8f8f8;
+    padding: 8px; /* Further reduced padding */
+    border-radius: 3px; /* Further reduced border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 320px; /* Smaller maximum width */
+    margin: 0 auto; /* Center the wrapper horizontally */
+}
+
+.content h2 {
+    color: #333;
+    font-size: 14px; /* Further reduced heading font size */
+    margin-bottom: 8px; /* Further reduced margin below heading */
+}
+
+.content form {
+    margin-top: 8px; /* Further reduced margin above form */
+}
+
+.content label {
+    font-size: 11px; /* Further reduced label font size */
+    color: #555;
+}
+
+.custom-wrapper { 
+    margin: 0 auto 20px; /* Center the wrapper horizontally and add bottom margin */
+    width: calc(100% - 16px); /* Adjusted width to fit within the content area */
+    padding: 10px; /* Padding for the wrapper */
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+
+.header h2 { 
+    font-size: 18px;
+    color: #FF4B2B;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+.price-input-container { 
+    width: 100%; /* Full width */
+    margin-top: 10px; /* Top margin for the input container */
+}
+
+.price-input .price-field { 
+    display: flex; 
+    margin-bottom: 10px;
+} 
+
+.price-field span { 
+    margin-right: 10px; 
+    font-size: 14px;
+    color: #555;
+} 
+
+.price-field input { 
+    flex: 1; 
+    height: 30px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.price-slider { 
+    height: 6px;
+    background: #FF4B2B;
+    border-radius: 3px;
+}
+
+.slider-container { 
+    margin-top: 10px;
+}
+  
+.price-input { 
+    width: 100%; 
+    font-size: 19px; 
+    color: #555; 
+} 
+
+input::-webkit-outer-spin-button, 
+input::-webkit-inner-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+} 
+  
+.slider-container { 
+    width: 100%; 
+} 
+  
+.slider-container { 
+    height: 6px; 
+    position: relative; 
+    background: #e4e4e4; 
+    border-radius: 5px; 
+} 
+  
+.slider-container .price-slider { 
+    height: 100%; 
+    left: 25%; 
+    right: 15%; 
+    position: absolute; 
+    border-radius: 5px; 
+    background: #FF4B2B; 
+} 
+  
+.range-input { 
+    position: relative; 
+} 
+  
+.range-input input { 
+    position: absolute; 
+    width: 100%; 
+    height: 5px; 
+    background: none; 
+    top: -5px; 
+    pointer-events: none; 
+    cursor: pointer; 
+    -webkit-appearance: none; 
+} 
+
+input[type="range"]::-webkit-slider-thumb { 
+    height: 18px; 
+    width: 18px; 
+    border-radius: 70%; 
+    background: #555; 
+    pointer-events: auto; 
+    -webkit-appearance: none; 
+} 
+  
+@media screen and (max-width: 768px) { 
+    .main { 
+        width: 80%; 
+        margin-right: 5px; 
+    } 
+  
+    .custom-wrapper { 
+        width: 100%; 
+        left: 0; 
+        padding: 0 10px; 
+    } 
+  
+    .projtitle { 
+        width: 100%; 
+        position: relative; 
+        right: 26px; 
+    } 
+  
+    .price-input { 
+        flex-direction: column; 
+        align-items: center; 
+    } 
+  
+    .price-field { 
+        margin-bottom: 10px; 
+    } 
+}
+
+.content {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f4f4f4;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.open {
+    left: 0; /* Slide the navigation into view */
+}
+
+#openNav {
+    position: fixed;
+    top: 25px;
+    left: 20px;
+    border: none;
+    background: none;
+    z-index: 2; /* Ensure it's above the navigation */
+}
+
+#openNav:hover {
+    cursor:pointer;
+}
+
+#closeNav {
+    position: absolute;
+    color: red;
+    top: 0px;
+    left: 75%;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+#closeNav:hover {
+    color: green;
+}
+
+.content select, 
+.content input[type="date"] {
+    width: calc(100% - 8px);
+    padding: 3px;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-size: 11px;
+}
+
+.content button {
+    background-color: #FF4B2B;
+    width: 100px;
+    height: 30px;
+    position: relative;
+    left: 30%;
+    color: #fff;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 2px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.content button:hover {
+    background-color: #017208;
+}
+
+.car-table {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.car-table table {
+    width: 85%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+.car-table td {
+    width: 33.33%;
+    padding: 10px;
+    text-align: center;
+    height: 200px;
+    width: 100px;
+}
+
+.car-cell {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.car-cell img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.car-cell img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.car-cell span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+table {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+th, td {
+    padding: 3px; /* Adjust padding as needed */
+    border: none; /* Remove border */
+    text-align: center; /* Center align content */
+}
+
+th {
+    background-color: black; /* Remove gray background */
+    color: white;
+    font-size: smaller; /* Make font size smaller */
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+
