@@ -18,7 +18,7 @@
                     <span class='register'>Don't have an account?</span>
                     <span class='register'>Create new account now. <a class="register-btn" href="register.jsp">Register</a></span>
                     <span class="staff-login">Staff Login Only <a class="staff-login-btn" href="staffLogin.jsp">Staff-Login</a></span>
-                    <p style="background-color:red;color:white;display:inline-block">Message: ${message}</p>
+                    <p style="background-color:red;color:white;display:inline-block">${message}</p>
                 </form>
             </div>
             <div class="overlay-container">

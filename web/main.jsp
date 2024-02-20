@@ -48,9 +48,14 @@
             </div>
             <%
             } else {
+                String currentUser = (String) request.getSession().getAttribute("customerName");
             %>
             <div class="customer-page">
-                <a class="customer-link" href="customer/customerInfo.jsp">Customer Page</a>
+                <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
+                <form class="logout" action="LogoutController" method="POST" id="logoutForm">
+                    <input class="logout-btn" name="action" type="button" value="Logout" onclick="logout()">
+                </form>
+
                 <i class="customer-btn fa-solid fa-caret-down fa-rotate-90 fa-lg"></i>
                 <div id="customer-dropdown" class="dropdown-content">
                     <a href="#home">Home</a>
@@ -161,6 +166,13 @@
             List<Car> cars = dao.getFilteredCars(selectedBrand, selectedLocation, selectedDate, minPrice, maxPrice);
         %>
 
+        <% if (cars.isEmpty()) {
+
+        %>
+        <div class="car-status">
+            <span>Oops! Sorry, we are currently <span style="color: red">out of stock</span> for that car. However, we are working diligently to replenish our inventory. If you would like us to notify you as soon as the car becomes available, please leave your contact information <a style="text-decoration: underline; color: blue">here</a>. Thank you for your patience!</span>
+        </div>
+        <% } %>
 
         <div class="car-table">
             <table>

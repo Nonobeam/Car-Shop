@@ -101,3 +101,6 @@ document.getElementById("closeNav").addEventListener("click", function() {
     document.querySelector(".content").classList.remove("open");
 });
 
+function logout() {
+        document.getElementById('logoutForm').submit();
+    }
