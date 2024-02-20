@@ -25,9 +25,10 @@ public class Car {
     private String make;
     private String location;
     private String imageUrl;
+    private int quantity;
 
     // Constructor
-    public Car(String carId, String model, double price, LocalDate date, String VIN, String colour, String licensePlate, String make, String location, String imageUrl) {
+    public Car(String carId, String model, double price, LocalDate date, String VIN, String colour, String licensePlate, String make, String location, String imageUrl, int quantity) {
         this.carId = carId;
         this.model = model;
         this.price = price;
@@ -38,6 +39,7 @@ public class Car {
         this.make = make;
         this.location = location;
         this.imageUrl = imageUrl;
+        this.quantity = quantity;
     }
 
     // Getters and Setters
@@ -119,6 +121,14 @@ public class Car {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
 

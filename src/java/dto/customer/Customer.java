@@ -5,6 +5,7 @@
  */
 package dto.customer;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -18,27 +19,27 @@ public class Customer {
     private String customerName;
     private String password;
     private String phone;
-    private int age;
+    private LocalDate birth;
     private String address;
     private List<Inventory> inventoryList;
    
     
     // Constructor with customerId
-    public Customer(String customerId, String customerName, String password, String phone, int age, String address) {
+    public Customer(String customerId, String customerName, String password, String phone, LocalDate birth, String address) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.password = password;
         this.phone = phone;
-        this.age = age;
+        this.birth = birth;
         this.address = address;
     }
     
     // Constructor
-    public Customer(String customerName, String password, String phone, int age, String address) {
+    public Customer(String customerName, String password, String phone, LocalDate birth, String address) {
         this.customerName = customerName;
         this.password = password;
         this.phone = phone;
-        this.age = age;
+        this.birth = birth;
         this.address = address;
     }
 
@@ -70,12 +71,12 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDate getBirth() {
+        return birth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirth(LocalDate birth) {
+        this.birth = birth;
     }
 
     public String getAddress() {

@@ -24,11 +24,12 @@ public class DAO {
     PreparedStatement pre;
     ResultSet rs;
 
+    //Fileter Car with Brand, Location, Date, Price, Price
     public List<Car> getFilteredCars(String selectedBrand, String selectedLocation, String selectedDate, String minPrice, String maxPrice) {
         List<Car> cars = new ArrayList<>();
         //some suck things that I have to learn more to fix this
         //this dump will let other below code work fine without caring about the "AND" in sql statement 
-        String sql = "SELECT * FROM Car WHERE 1 = 1";
+        String sql = "SELECT * FROM Car WHERE quantity > 0";
 
         if (selectedBrand != null && !selectedBrand.isEmpty()) {
             sql += " AND model = ?";
@@ -94,6 +95,7 @@ public class DAO {
         return cars;
     }
 
+    //Get all Cars that had sold in the store even when nothing left
     public List<Car> getAllCars() {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM Car";
@@ -124,6 +126,7 @@ public class DAO {
         return list;
     }
 
+    //Get all Model that we sell
     public List<String> getAllModels() {
         List<String> list = new ArrayList<>();
         String sql = "SELECT DISTINCT model FROM Car";
@@ -153,6 +156,7 @@ public class DAO {
         return list;
     }
 
+    //Get all Location that we sell
     public List<String> getAllLocations() {
         List<String> list = new ArrayList<>();
         String sql = "SELECT DISTINCT location FROM Car";
@@ -181,7 +185,8 @@ public class DAO {
 
         return list;
     }
-    
+
+    //Get all Productor that we collaborate
     public List<Productor> getAllProductors() {
         List<Productor> list = new ArrayList<>();
         String sql = "SELECT * FROM Productor";
@@ -191,12 +196,12 @@ public class DAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 //productorId, productorName, address
-                Productor productor = new Productor (
+                Productor productor = new Productor(
                         rs.getString("productorId"),
                         rs.getString("productorName"),
                         rs.getString("address")
                 );
-                
+
                 list.add(productor);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -218,6 +223,7 @@ public class DAO {
         return list;
     }
 
+    //Get Car by Id even when nothing left
     public Car getCarById(String carId) {
         Car car = null;
         String sql = "SELECT * FROM Car WHERE carId = ?";
@@ -247,6 +253,7 @@ public class DAO {
         return car;
     }
 
+    //Get Car by Model even when nothing left
     public List<Car> getCarByModel(String model) {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM Car WHERE model = ?";
@@ -277,6 +284,7 @@ public class DAO {
         return list;
     }
 
+    //Get Car by Location even when nothing left
     public List<Car> getAllCarsByLocation(String location) {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM Car WHERE location = ?";
@@ -307,6 +315,7 @@ public class DAO {
         return list;
     }
 
+    //Get Car by Date even when nothing left
     public List<Car> getCarsByDate(LocalDate date) {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM Car WHERE date > ?";
@@ -337,6 +346,7 @@ public class DAO {
         return list;
     }
 
+    //Get Car by Price even when nothing left
     public List<Car> getCarByPriceRange(double minPrice, double maxPrice) {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM Car WHERE price BETWEEN ? AND ?";
@@ -368,6 +378,7 @@ public class DAO {
         return list;
     }
 
+    //Create Car entity
     private Car createCarFromResultSet(ResultSet rs) throws SQLException {
         return new Car(
                 rs.getString("carId"),
@@ -379,10 +390,13 @@ public class DAO {
                 rs.getString("licensePlate"),
                 rs.getString("make"),
                 rs.getString("location"),
-                rs.getString("image")
+                rs.getString("image"),
+                rs.getInt("quantity")
         );
     }
 
+    //-----------------USER-----------------
+    //Check user LOGIN 
     public Customer checkCustomerLogin(String phone, String password) {
         Customer customer = null;
         String sql = "SELECT * FROM Customer WHERE phone = ? AND password = ?";
@@ -398,7 +412,7 @@ public class DAO {
                         rs.getString("customerName"),
                         rs.getString("password"),
                         rs.getString("phone"),
-                        Integer.parseInt(rs.getString("age")),
+                        rs.getDate("birth").toLocalDate(),
                         rs.getString("address")
                 );
                 return customer;
@@ -412,15 +426,15 @@ public class DAO {
     public boolean insert(Customer customer) {
         boolean checkInsert = false;
         //id, customerName, password, phone, int age, address
-        String query = "insert into Customer(customerName, password, phone, age, address) values(?, ?, ?, ?)";
+        String query = "insert into Customer(customerName, password, phone, address, birth) values(?, ?, ?, ?, ?)";
         try {
             connection = new DBUtils().getConnection();
-            pre = connection.prepareStatement(query);
-            pre.setString(2, customer.getCustomerName());
-            pre.setString(3, customer.getPassword());
-            pre.setString(4, customer.getPhone());
-            pre.setInt(5, customer.getAge());
-            pre.setString(6, customer.getAddress());
+            PreparedStatement pre = connection.prepareStatement(query);
+            pre.setString(1, customer.getCustomerName());
+            pre.setString(2, customer.getPassword());
+            pre.setString(3, customer.getPhone());
+            pre.setString(4, customer.getAddress());
+            pre.setDate(5, java.sql.Date.valueOf(customer.getBirth()));
 
             checkInsert = pre.executeUpdate() > 0 ? true : false;
         } catch (Exception e) {
