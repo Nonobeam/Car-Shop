@@ -125,6 +125,19 @@ li:hover ul#submenu {
     color: white;
 }
 
+.logout {
+    display: inline;
+}
+
+.car-status {
+    font-size: 18px;
+    font-family: 'georgia';
+    font-weight: bold;
+    text-align: center;
+    padding: 250px 100px 200px 100px;
+
+}
+
 .content {
     background-color: #f8f8f8;
     padding: 8px; /* Further reduced padding */
@@ -200,7 +213,7 @@ li:hover ul#submenu {
 .slider-container { 
     margin-top: 10px;
 }
-  
+
 .price-input { 
     width: 100%; 
     font-size: 19px; 
@@ -212,18 +225,18 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none; 
     margin: 0; 
 } 
-  
+
 .slider-container { 
     width: 100%; 
 } 
-  
+
 .slider-container { 
     height: 6px; 
     position: relative; 
     background: #e4e4e4; 
     border-radius: 5px; 
 } 
-  
+
 .slider-container .price-slider { 
     height: 100%; 
     left: 25%; 
@@ -232,11 +245,11 @@ input::-webkit-inner-spin-button {
     border-radius: 5px; 
     background: #FF4B2B; 
 } 
-  
+
 .range-input { 
     position: relative; 
 } 
-  
+
 .range-input input { 
     position: absolute; 
     width: 100%; 
@@ -256,30 +269,30 @@ input[type="range"]::-webkit-slider-thumb {
     pointer-events: auto; 
     -webkit-appearance: none; 
 } 
-  
+
 @media screen and (max-width: 768px) { 
     .main { 
         width: 80%; 
         margin-right: 5px; 
     } 
-  
+
     .custom-wrapper { 
         width: 100%; 
         left: 0; 
         padding: 0 10px; 
     } 
-  
+
     .projtitle { 
         width: 100%; 
         position: relative; 
         right: 26px; 
     } 
-  
+
     .price-input { 
         flex-direction: column; 
         align-items: center; 
     } 
-  
+
     .price-field { 
         margin-bottom: 10px; 
     } 
@@ -372,11 +385,10 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .car-table td {
-    width: 33.33%;
     padding: 10px;
     text-align: center;
-    height: 200px;
-    width: 100px;
+    height: fit-content;
+    width: fit-content;
 }
 
 .car-cell {
@@ -387,8 +399,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 .car-cell img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 504px;
+    height: 344px;
     transition: transform 0.3s;
 }
 
@@ -433,8 +445,6 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    bottom: 0;
-    width: 100%;
 }
 
 
