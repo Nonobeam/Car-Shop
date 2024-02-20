@@ -28,23 +28,20 @@ public class RegisterController extends HttpServlet {
         try {
             //id, customerName, password, phone, int age, address
             String name = request.getParameter("name");
-            String password = request.getParameter("password");
+            String password = request.getParameter("pwd");
             String phone = request.getParameter("phone");
             
-            // Get the birth date from the input
-            String birthDateString = request.getParameter("age");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
-            LocalDate currentDate = LocalDate.now();
-            Period period = Period.between(birthDate, currentDate);
+            String birthString = request.getParameter("birth");
+            LocalDate birth = LocalDate.parse(birthString, DateTimeFormatter.ISO_DATE);
 
-            int age = period.getYears();
+
             String address = request.getParameter("address");
-            Customer customer = new Customer(name, password, phone, age, address);
+            Customer customer = new Customer(name, password, phone, birth, address);
             DAO dao = new DAO();
             boolean checkInsert = dao.insert(customer);
             if (checkInsert) {
                 request.setAttribute("noti", "Save successfully");
+                response.sendRedirect("login.jsp");
             } else {
                 request.setAttribute("noti", "Save failed");
             }
