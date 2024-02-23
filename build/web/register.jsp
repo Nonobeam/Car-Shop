@@ -18,17 +18,18 @@
             </div>
             <div class="form-container log-in-container">
 <!--                id, name, age, address-->
-                <form action="MainController" method="POST">
+                <form action="RegisterController" method="POST">
                     <h1>Sign up</h1>
                     <span class="login">Already have an account? <a class="login-btn" href="login.jsp">Login</a></span>
                     Name: <input type="text" name="name" required=""><br>
-                    Password: <input type="password" name="name" required=""><br>
-                    Birth Date: <input type="date" name="age" required=""><br>
+                    Password: <input type="password" name="pwd" required=""><br>
+                    Phone: <input type="text" name="phone" required=""><br>                
+                    Birth Date: <input type="date" name="birth" required=""><br>
                     Address: <input type="text" name="address" required=""><br>
                     <button type="submit" name="action" value="register">Sign up</button>
                 </form>
             </div>
         </div>
-        <p style="margin-top:20px; margin-left: 200px;color:black;display:inline-block;">Status: ${noti}</p>
+        <p style="margin-top:20px; margin-left: 200px;color:black;display:inline-block;">${noti}</p>
     </body>
 </html>

@@ -23,7 +23,7 @@ body {
 
 .logo::before{
     content: "SHOP";
-    color: red;
+    color: blue;
 }
 
 .menu-items {
@@ -102,6 +102,10 @@ li:hover ul#submenu {
 
 .panel {
   margin-top: 20px;
+}
+
+table {
+    widows: 300px;
 }
 
 footer {

@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Main Page</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/05ec024090.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -18,49 +19,53 @@
         </header>
 
         <nav class="dropdownmenu">
-            <div>
-                <button id="openNav"><i class="fa-solid fa-bars fa-2xl" style="color: white;"></i></button>
-                <a class="logo">CAR</a>
-            </div>
-            <ul class="menu-items">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Me</a></li>
-                <li><a href="#">Articles on HTML5 & CSS3</a>
-                    <ul id="submenu">
-                        <li><a href="http://www.jochaho.com/wordpress/difference-between-svg-vs-canvas/">Difference between SVG vs. Canvas</a></li>
-                        <li><a href="http://www.jochaho.com/wordpress/new-features-in-html5/">New features in HTML5</a></li>
-                        <li><a href="http://www.jochaho.com/wordpress/creating-links-to-sections-within-a-webpage/">Creating links to sections within a webpage</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">BLOGS</a></li>
-                <li><a href="#">CONTACT</a></li>
-            </ul>
-
-            <%
-                String userId = (String) request.getSession().getAttribute("customerId");
-
-                if (userId == null || userId.isEmpty()) {
-            %>
-            <div class="register-login">
-                <a href="register.jsp">Register</a>
-                <a>/</a>
-                <a href="login.jsp">Login</a>
-            </div>
-            <%
-            } else {
-            %>
-            <div class="customer-page">
-                <a class="customer-link" href="customer/customerInfo.jsp">Customer Page</a>
-                <i class="customer-btn fa-solid fa-caret-down fa-rotate-90 fa-lg"></i>
-                <div id="customer-dropdown" class="dropdown-content">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
+            <div class="navigation">
+                <div>
+                    <button id="openNav"><i class="fa-solid fa-bars fa-2xl" style="color: white;"></i></button>
+                    <a class="logo">CAR</a>
                 </div>
+                <ul class="menu-items">
+                    <li><a href="main.jsp>Home</a></li>
+                           <li><a href="#">About Me</a></li>
+                    <li><a href="#">BLOGS</a></li>
+                    <li><a href="#bigfoot">CONTACT</a></li>
+                </ul>
+
+                <%
+                    String userId = (String) request.getSession().getAttribute("customerId");
+
+                    if (userId == null || userId.isEmpty()) {
+                %>
+                <div class="register-login">
+                    <a href="register.jsp">Register</a>
+                    <a>/</a>
+                    <a href="login.jsp">Login</a>
+                </div>
+                <%
+                } else {
+                    String currentUser = (String) request.getSession().getAttribute("customerName");
+                %>
+                <div class="customer-page">
+                    <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
+                    <div id="customer-dropdown" class="dropdown-content">
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#contact">Contact</a>
+                        <a href="LogoutController?action=logout" class="logout">Logout</a>
+                    </div>
+                </div>
+                <%
+                    }
+                %>
             </div>
-            <%
-                }
-            %>
+
+            <div class="search-box">
+                <form action="CarController" method="GET">
+                    <input type="hidden" name="action" value="search">
+                    <input type="text" name="query" placeholder="Search..">
+                    <button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+                </form>
+            </div>
         </nav>
 
         <div class="content">
@@ -161,6 +166,13 @@
             List<Car> cars = dao.getFilteredCars(selectedBrand, selectedLocation, selectedDate, minPrice, maxPrice);
         %>
 
+        <% if (cars.isEmpty()) {
+
+        %>
+        <div class="car-status">
+            <span>Oops! Sorry, we are currently <span style="color: red">out of stock</span> for that car. However, we are working diligently to replenish our inventory. If you would like us to notify you as soon as the car becomes available, please leave your contact information <a style="text-decoration: underline; color: blue">here</a>. Thank you for your patience!</span>
+        </div>
+        <% } %>
 
         <div class="car-table">
             <table>
@@ -200,7 +212,7 @@
         <%
             List<Productor> productors = dao.getAllProductors();
         %>
-        <footer>
+        <footer id="bigfoot">
             <table>
                 <tr>
                     <th>Brand</th>

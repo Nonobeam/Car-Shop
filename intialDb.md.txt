@@ -1,0 +1,87 @@
+-- Create Database
+CREATE DATABASE CarManagementDB;
+
+-- Use the Database
+USE CarManagementDB;
+
+-- Create Employee Table
+CREATE TABLE Employee (
+    employeeId VARCHAR(5) PRIMARY KEY,
+    employeeName VARCHAR(25) NOT NULL,
+    birth DATE,
+    role VARCHAR(10),
+    password VARCHAR(50) NOT NULL
+);
+
+-- Create Productor Table
+CREATE TABLE Productor (
+    productorId VARCHAR(5) PRIMARY KEY,
+    productorName VARCHAR(20),
+    address VARCHAR(20)
+);
+
+-- Create Car Table
+CREATE TABLE Car (
+    carId VARCHAR(5) PRIMARY KEY,
+    model VARCHAR(20),
+    date DATE,
+    VIN VARCHAR(17),
+    colour VARCHAR(10),
+    licensePlate VARCHAR(10),
+    make VARCHAR(5),
+    location VARCHAR(10),
+    price DECIMAL(10, 2),
+    quantity INT,
+    FOREIGN KEY (make) REFERENCES Productor(productorId)
+);
+
+-- Create Supplier Table
+CREATE TABLE Supplier (
+    supplierId VARCHAR(5) PRIMARY KEY,
+    supplierName VARCHAR(255),
+    address VARCHAR(20)
+);
+
+-- Create Inventory Table
+CREATE TABLE Inventory (
+    inventoryId INT PRIMARY KEY,
+    manuDate DATE,
+    factuDate DATE
+);
+
+-- Create InventoryCar Table (Many-to-Many relationship between Inventory and Car)
+CREATE TABLE InventoryCar (
+    inventoryId VARCHAR(5),
+    carId VARCHAR(5),
+    PRIMARY KEY (inventoryId, carId),
+    FOREIGN KEY (inventoryId) REFERENCES Inventory(inventoryId),
+    FOREIGN KEY (carId) REFERENCES Car(carId)
+);
+
+-- Create Table Order between Supplier and Car
+CREATE TABLE Purchase (
+    supplierId VARCHAR(5),
+    carId VARCHAR(5),
+    PRIMARY KEY (supplierId, carId),
+    FOREIGN KEY (supplierId) REFERENCES Supplier(supplierId),
+    FOREIGN KEY (carId) REFERENCES Car(carId)
+);
+
+-- Create Customer Table
+CREATE TABLE Customer (
+    customerId INT IDENTITY(1,1) PRIMARY KEY,
+    customerName VARCHAR(25),
+    password VARCHAR(100),
+    phone VARCHAR(11),
+    birth DATE,
+    address VARCHAR(20)  
+);
+
+-- Create Table Order between Customer and Inventory
+CREATE TABLE Orders (
+    customerId INT,
+    inventoryId VARCHAR(5),
+    PRIMARY KEY (customerId, inventoryId),
+    FOREIGN KEY (customerId) REFERENCES Customer(customerId),
+    FOREIGN KEY (inventoryId) REFERENCES Inventory(inventoryId)
+);

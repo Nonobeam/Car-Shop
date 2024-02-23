@@ -18,24 +18,57 @@ header {
 }
 
 .dropdownmenu {
-    background: black;
+    position: fixed;
+    top: 0;
+    background: #ff4b2b;
+    display: flex;
+    flex-direction: column;
+    height: 110px;
+    width: 100%;
+    z-index: 9;
+}
+
+.search-box {
+    margin: 0 auto; /* Center the search box horizontally */
+}
+
+.search-box input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 1000px;
+}
+
+.search-btn{
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 40px;
+    width: 55px;
+    background: #ff4b2b;
+    position: relative;
+    left: -65px;
+}
+
+.navigation{
+    padding-top: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    height: 50px;
 }
 
 .logo {
     color: white;
     font-weight: bold;
     font-size: 23px;
-    padding-left: 50px;
+    padding-left: 80px;
 }
 
 .logo::before{
     content: "SHOP";
-    color: red;
+    color: blue;
 }
 
 .menu-items {
@@ -97,7 +130,7 @@ li:hover ul#submenu {
 }
 
 .register-login {
-    padding-right: 10px;
+    padding-right: 30px;
 }
 
 .register-login a {
@@ -115,23 +148,63 @@ li:hover ul#submenu {
     margin-left: 5px; /* Adjust spacing between register and login links */
 }
 
+.customer-page {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a{
+    display: block;
+}
+
+.dropdown-content>a:hover{
+    background-color: #ff816a;
+}
+
 .customer-link{
     color: white;
     text-decoration: none;
     font-weight: bold;
+    padding-right: 20px;
+}
+
+.customer-page:hover .dropdown-content{
+    display: block;
+    z-index: 1000;
 }
 
 .customer-btn{
     color: white;
 }
 
+.logout {
+    display: inline;
+}
+
+.car-status {
+    font-size: 18px;
+    font-family: 'georgia';
+    font-weight: bold;
+    text-align: center;
+    padding: 250px 100px 200px 100px;
+
+}
+
 .content {
     background-color: #f8f8f8;
-    padding: 8px; /* Further reduced padding */
-    border-radius: 3px; /* Further reduced border radius */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 320px; /* Smaller maximum width */
-    margin: 0 auto; /* Center the wrapper horizontally */
+    padding: 8px;
+    border-radius: 3px;
+    max-width: 320px;
+    margin: 0 auto;
 }
 
 .content h2 {
@@ -200,7 +273,7 @@ li:hover ul#submenu {
 .slider-container { 
     margin-top: 10px;
 }
-  
+
 .price-input { 
     width: 100%; 
     font-size: 19px; 
@@ -212,18 +285,18 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none; 
     margin: 0; 
 } 
-  
+
 .slider-container { 
     width: 100%; 
 } 
-  
+
 .slider-container { 
     height: 6px; 
     position: relative; 
     background: #e4e4e4; 
     border-radius: 5px; 
 } 
-  
+
 .slider-container .price-slider { 
     height: 100%; 
     left: 25%; 
@@ -232,11 +305,11 @@ input::-webkit-inner-spin-button {
     border-radius: 5px; 
     background: #FF4B2B; 
 } 
-  
+
 .range-input { 
     position: relative; 
 } 
-  
+
 .range-input input { 
     position: absolute; 
     width: 100%; 
@@ -256,30 +329,30 @@ input[type="range"]::-webkit-slider-thumb {
     pointer-events: auto; 
     -webkit-appearance: none; 
 } 
-  
+
 @media screen and (max-width: 768px) { 
     .main { 
         width: 80%; 
         margin-right: 5px; 
     } 
-  
+
     .custom-wrapper { 
         width: 100%; 
         left: 0; 
         padding: 0 10px; 
     } 
-  
+
     .projtitle { 
         width: 100%; 
         position: relative; 
         right: 26px; 
     } 
-  
+
     .price-input { 
         flex-direction: column; 
         align-items: center; 
     } 
-  
+
     .price-field { 
         margin-bottom: 10px; 
     } 
@@ -288,12 +361,12 @@ input[type="range"]::-webkit-slider-thumb {
 .content {
     position: fixed;
     top: 0;
-    left: -300px;
+    left: -320px;
     width: 300px;
     height: 100%;
     background-color: #f4f4f4;
     transition: left 0.3s ease;
-    z-index: 1000;
+    z-index: 10;
 }
 
 .open {
@@ -301,9 +374,8 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #openNav {
-    position: fixed;
-    top: 25px;
-    left: 20px;
+    position: absolute;
+    left: 10px;
     border: none;
     background: none;
     z-index: 2; /* Ensure it's above the navigation */
@@ -322,11 +394,11 @@ input[type="range"]::-webkit-slider-thumb {
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 11;
 }
 
 #closeNav:hover {
-    color: green;
+    color: #ff816a;
 }
 
 .content select, 
@@ -356,13 +428,13 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .content button:hover {
-    background-color: #017208;
+    background-color: #ff816a;
 }
 
 .car-table {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 150px;
 }
 
 .car-table table {
@@ -372,11 +444,10 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .car-table td {
-    width: 33.33%;
     padding: 10px;
     text-align: center;
-    height: 200px;
-    width: 100px;
+    height: fit-content;
+    width: fit-content;
 }
 
 .car-cell {
@@ -387,8 +458,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 .car-cell img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 504px;
+    height: 344px;
     transition: transform 0.3s;
 }
 
@@ -417,24 +488,22 @@ table {
 }
 
 th, td {
-    padding: 3px; /* Adjust padding as needed */
-    border: none; /* Remove border */
-    text-align: center; /* Center align content */
+    padding: 3px;
+    border: none;
+    text-align: center;
 }
 
 th {
-    background-color: black; /* Remove gray background */
+    background-color: #ff816a;
     color: white;
-    font-size: smaller; /* Make font size smaller */
+    font-size: smaller;
 }
 
 footer {
-    background-color: black;
+    background-color: #ff4b2b;
     color: white;
     text-align: center;
     padding: 10px;
-    bottom: 0;
-    width: 100%;
 }
 
 
