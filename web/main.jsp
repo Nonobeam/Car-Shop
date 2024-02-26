@@ -22,12 +22,12 @@
             <div class="navigation">
                 <div>
                     <button id="openNav"><i class="fa-solid fa-bars fa-2xl" style="color: white;"></i></button>
-                    <a class="logo">CAR</a>
+                    <a href="main.jsp" class="logo" style="text-decoration:none">CAR</a>
                 </div>
                 <ul class="menu-items">
-                    <li><a href="main.jsp>Home</a></li>
-                           <li><a href="#">About Me</a></li>
-                    <li><a href="#">BLOGS</a></li>
+                    <li><a href="main.jsp">HOME</a></li>
+                    <li><a href="information/aboutMe.jsp">ABOUT ME</a></li>
+                    <li><a href="#bigfoot">PRODUCTOR</a></li>
                     <li><a href="#bigfoot">CONTACT</a></li>
                 </ul>
 
@@ -48,9 +48,8 @@
                 <div class="customer-page">
                     <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
                     <div id="customer-dropdown" class="dropdown-content">
-                        <a href="#home">Home</a>
-                        <a href="#about">About</a>
-                        <a href="#contact">Contact</a>
+                        <a href="customer/customerInfo.jsp">My Account</a>
+                        <a href="cartHistory/cartPage.jsp">My Purchase</a>
                         <a href="LogoutController?action=logout" class="logout">Logout</a>
                     </div>
                 </div>
@@ -186,10 +185,10 @@
                         }
                     %>
                     <td>
-                        <div class="car-cell">
+                        <a href="CarController?action=info&carId=<%= car.getCarId()%>" class="car-cell">
                             <img src="<%= car.getImageUrl()%>" alt="<%= car.getModel()%>">
                             <span><%= car.getModel()%> Info</span>
-                        </div>
+                        </a>
                     </td>
                     <%
                         count++;
@@ -213,7 +212,7 @@
             List<Productor> productors = dao.getAllProductors();
         %>
         <footer id="bigfoot">
-            <table>
+            <table class="footer-productor">
                 <tr>
                     <th>Brand</th>
                     <th>Address</th>
@@ -233,6 +232,16 @@
                 <%
                     }
                 %>
+            </table>
+            <table class="footer-phone">
+                <tr>
+                    <td>
+                        <span>(tel+):</span>
+                    </td>
+                    <td>
+                        <span>05396475297</span>
+                    </td>
+                </tr>
             </table>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>
         </footer>

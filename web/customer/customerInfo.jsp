@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,15 +14,21 @@
         </header>
 
         <nav class="dropdownmenu">
-            <div>
-                <a class="logo">CAR</a>
+            <div class="navigation">
+                <div>
+                    <a href="../main.jsp" class="logo" style="text-decoration:none">CAR</a>
+                </div>
+
+                <%
+                    String currentUser = (String) request.getSession().getAttribute("customerName");
+                %>
+                <div class="customer-page">
+                    <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
+                    <div id="customer-dropdown" class="dropdown-content">
+                        <a href="../LogoutController?action=logout" class="logout">Logout</a>
+                    </div>
+                </div>
             </div>
-            <ul class="menu-items">
-                <li><a href="main.jsp">Home</a></li>
-                <li><a href="#">About Me</a></li>
-                <li><a href="#">BLOGS</a></li>
-                <li><a href="#">CONTACT</a></li>
-            </ul>
         </nav>
 
         <div class="container">
@@ -33,7 +37,7 @@
                     <div class="panel panel-primary">
                         
                         <div class="panel-heading">
-                            <h3 class="panel-title"><a class="customer-link" href="customer/customerInfo.jsp">${customerName}</a></h3>
+                            <h3 class="panel-title"><a class="customer-link">${customerName}</a></h3>
                         </div>
                         <div class="panel-body">
                             <div class="row">

@@ -1,4 +1,3 @@
-/* Reset default browser styles */
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
@@ -62,13 +61,17 @@ header {
 .logo {
     color: white;
     font-weight: bold;
-    font-size: 23px;
+    font-size: 30px;
     padding-left: 80px;
 }
 
 .logo::before{
     content: "SHOP";
     color: blue;
+}
+
+.logo:hover{
+    color: green;
 }
 
 .menu-items {
@@ -99,7 +102,8 @@ header {
 }
 
 .dropdownmenu li:hover a {
-    color: red;
+    color: #e6e6e6;
+    text-decoration:none;
 }
 
 #submenu {
@@ -209,25 +213,25 @@ li:hover ul#submenu {
 
 .content h2 {
     color: #333;
-    font-size: 14px; /* Further reduced heading font size */
-    margin-bottom: 8px; /* Further reduced margin below heading */
+    font-size: 14px;
+    margin-bottom: 8px;
 }
 
 .content form {
-    margin-top: 8px; /* Further reduced margin above form */
+    margin-top: 8px;
 }
 
 .content label {
-    font-size: 11px; /* Further reduced label font size */
+    font-size: 11px;
     color: #555;
 }
 
 .custom-wrapper { 
-    margin: 0 auto 20px; /* Center the wrapper horizontally and add bottom margin */
-    width: calc(100% - 16px); /* Adjusted width to fit within the content area */
-    padding: 10px; /* Padding for the wrapper */
-    border-radius: 6px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    margin: 0 auto 20px;
+    width: calc(100% - 16px);
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h2 { 
@@ -239,8 +243,8 @@ li:hover ul#submenu {
 }
 
 .price-input-container { 
-    width: 100%; /* Full width */
-    margin-top: 10px; /* Top margin for the input container */
+    width: 100%;
+    margin-top: 10px;
 }
 
 .price-input .price-field { 
@@ -480,11 +484,16 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 12px;
 }
 
-table {
-    width: 60%;
-    margin: 0 auto;
-    border-collapse: collapse;
+.footer-productor {
+    width: 500px;
     font-size: 12px;
+}
+
+.footer-phone {
+}
+
+table {
+    margin: 0 auto;
 }
 
 th, td {

@@ -123,17 +123,6 @@ li:hover ul#submenu {
     background-color: #000000;
 }
 
-.register-login {
-    padding-right: 30px;
-}
-
-.register-login a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
-
 .register-login a:hover {
     color: red; /* Change color on hover */
 }
@@ -184,35 +173,6 @@ li:hover ul#submenu {
     display: inline;
 }
 
-.container{
-    position: relative;
-    top: 200px;
-}
-
-.user-row {
-  margin-bottom: 14px;
-}
-
-.table-user-information > tbody > tr {
-  border-top: 1px solid #ccc;
-}
-
-.table-user-information > tbody > tr:first-child {
-  border-top: 0;
-}
-
-.table-user-information > tbody > tr > td {
-  border-top: 0;
-}
-
-.panel {
-  margin-top: 20px;
-}
-
-table {
-    widows: 300px;
-}
-
 footer {
     background-color: #ff4b2b;
     color: white;
@@ -222,3 +182,4 @@ footer {
     bottom: 0;
     width: 100%;
 }
+

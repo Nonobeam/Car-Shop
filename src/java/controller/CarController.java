@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,16 +31,33 @@ public class CarController extends HttpServlet {
             switch (action) {
                 case "search":
                     String query = request.getParameter("query");
-                    List<Car> searchResults = search(query); // Replace searchCars(query) with your actual search method
+                    List<Car> searchResults = search(query);
 
                     request.setAttribute("search", searchResults);
                     request.getRequestDispatcher("main.jsp").forward(request, response);
+                    break;
+                case "info":
+                    String carId = request.getParameter("carId");
+                    info(request, response, carId);
                     break;
                 default:
                     // Do nothing or handle the default case as needed
                     break;
             }
         }
+    }
+    
+    private void info(HttpServletRequest req, HttpServletResponse resp, String carId)  throws ServletException, IOException {
+        DAO dao = new DAO();
+        Car car = dao.getCarById(carId);
+        
+        String action = req.getParameter("action");
+        resp.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = req.getSession();
+        session.setAttribute("car", car);
+
+        req.getRequestDispatcher("cartHistory/cartPage.jsp").forward(req, resp);
     }
 
     private List<Car> search(String query) {
