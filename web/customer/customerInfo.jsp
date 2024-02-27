@@ -6,7 +6,7 @@
         <title>Customer</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="customerInforStyle.css">
+        <link rel="stylesheet" href="customer/customerInforStyle.css">
         <script src="https://kit.fontawesome.com/05ec024090.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -16,14 +16,14 @@
         <nav class="dropdownmenu">
             <div class="navigation">
                 <div>
-                    <a href="../main.jsp" class="logo" style="text-decoration:none">CAR</a>
+                    <a href="main.jsp" class="logo" style="text-decoration:none">CAR</a>
                 </div>
-
+                
                 <%
                     String currentUser = (String) request.getSession().getAttribute("customerName");
                 %>
                 <div class="customer-page">
-                    <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
+                    <a class="customer-link" href="customer/customerInfo.jsp">${customer.customerName}</a>
                     <div id="customer-dropdown" class="dropdown-content">
                         <a href="../LogoutController?action=logout" class="logout">Logout</a>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="panel panel-primary">
                         
                         <div class="panel-heading">
-                            <h3 class="panel-title"><a class="customer-link">${customerName}</a></h3>
+                            <h3 class="panel-title"><a class="customer-link">${customer.customerName}</a></h3>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -48,7 +48,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>Name:</td>
-                                                <td>${customerName}</td>
+                                                <td>${customer.customerName}</td>
                                             </tr>
                                             <tr>
                                                 <td>Phone:</td>

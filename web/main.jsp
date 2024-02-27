@@ -44,9 +44,10 @@
                 <%
                 } else {
                     String currentUser = (String) request.getSession().getAttribute("customerName");
+                    String currentUserId = (String) request.getSession().getAttribute("customerId");
                 %>
                 <div class="customer-page">
-                    <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
+                    <a class="customer-link" href="CustomerController?action=info&customerId=<%=currentUserId%>"><%= currentUser%></a>
                     <div id="customer-dropdown" class="dropdown-content">
                         <a href="customer/customerInfo.jsp">My Account</a>
                         <a href="cartHistory/cartPage.jsp">My Purchase</a>

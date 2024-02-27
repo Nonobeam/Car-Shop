@@ -40,6 +40,11 @@ public class CarController extends HttpServlet {
                     String carId = request.getParameter("carId");
                     info(request, response, carId);
                     break;
+                case "buy":
+                    carId = request.getParameter("carId");
+                    String customerId = request.getParameter("customerId");
+                    buy(request, response, carId, customerId);
+                    break;
                 default:
                     // Do nothing or handle the default case as needed
                     break;
@@ -56,6 +61,17 @@ public class CarController extends HttpServlet {
         
         HttpSession session = req.getSession();
         session.setAttribute("car", car);
+
+        req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
+    }
+    
+    private void buy(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId)  throws ServletException, IOException {
+        DAO dao = new DAO();
+        dao.buyCar(carId, customerId);
+        
+        String action = req.getParameter("action");
+        resp.setContentType("text/html;charset=UTF-8");
+        
 
         req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
     }

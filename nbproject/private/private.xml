@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Asus/Documents/PRJ301/Car/CarProductionManagement/web/cartHistory/carttStyle.css</file>
-            <file>file:/C:/Users/Asus/Documents/PRJ301/Car/CarProductionManagement/web/cartHistory/cartPage.jsp</file>
+            <file>file:/C:/Users/Asus/Documents/PRJ301/Car/CarProductionManagement/web/car/buyPage.jsp</file>
+            <file>file:/C:/Users/Asus/Documents/PRJ301/Car/CarProductionManagement/src/java/dao/DAO.java</file>
+            <file>file:/C:/Users/Asus/Documents/PRJ301/Car/CarProductionManagement/src/java/controller/CarController.java</file>
         </group>
     </open-files>
 </project-private>

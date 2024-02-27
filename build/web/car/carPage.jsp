@@ -61,51 +61,18 @@
                         <span><strong>Detail</strong></span>
                         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu tortor vitae nulla tempor sagittis non in urna. Vivamus quis feugiat quam, id rhoncus nunc. Etiam nibh justo, ullamcorper vitae nunc ut, scelerisque facilisis sapien. Integer eleifend eget justo tempor gravida. In dictum, dui quis faucibus bibendum, ligula nulla porttitor sapien, at pulvinar nisi odio non ex. Vivamus bibendum in diam eu iaculis. Duis tellus lorem, semper vel auctor vel, condimentum sed mauris. Nam dictum bibendum risus, at ultricies massa ultrices quis. Aenean hendrerit felis vitae sem porta consequat. Praesent auctor arcu sit amet purus scelerisque tincidunt. Morbi suscipit lacinia ligula, eu dapibus ligula consectetur ac. Vivamus sit amet dolor ut nibh suscipit ullamcorper. Integer volutpat mauris quis metus facilisis, nec convallis erat gravida. Suspendisse convallis eleifend tellus.</span>
                     </div>
-                    <div class="buy-box">
-                        <button class="btn btn-primary" id="buyNowBtn">Buy Now</button>
-                    </div>
+                    <form action="CarController?action=buy" method="post">
+                        <input type="hidden" name="carId" value="${carId}">
+                        <input type="hidden" name="customerId" value="${customerId}">
+                        <button type="submit">Buy Now</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Purchase</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to buy this car?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="confirmPurchaseBtn">Yes, Buy Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <footer>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>
         </footer>
 
-        <script>
-            // JavaScript
-            document.getElementById('buyNowBtn').addEventListener('click', function () {
-                $('#confirmationModal').modal('show'); // Show the modal
-            });
-
-            document.getElementById('confirmPurchaseBtn').addEventListener('click', function () {
-                // You can perform any additional actions here, such as submitting a form or making an AJAX request
-                alert('Car purchased successfully!');
-                $('#confirmationModal').modal('hide'); // Hide the modal after purchase is confirmed
-            });
-        </script>
     </body>
 </html>

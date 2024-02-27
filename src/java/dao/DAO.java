@@ -24,6 +24,77 @@ public class DAO {
     PreparedStatement pre;
     ResultSet rs;
 
+    //Buy A Car with A Customer ID
+    public boolean buyCar(String carId, String customerId) {
+        boolean checkInsert = false;
+        String sql = "INSERT INTO Customer_Car (customerId, carId) VALUES (?, ?)";
+
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+
+            pre.setString(1, customerId);
+            pre.setString(2, carId);
+
+            checkInsert = pre.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            // Handle exceptions
+        } finally {
+            try {
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // Handle exceptions
+            }
+        }
+
+        return checkInsert;
+    }
+
+    //Make new Car
+    public boolean createCar(Car newCar) {
+        boolean checkInsert = false;
+        String sql = "INSERT INTO Car (carId, model, date, VIN, colour, licensePlate, make, location, price, image, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+
+            pre.setString(1, newCar.getCarId());
+            pre.setString(2, newCar.getModel());
+            java.sql.Date sqlDate = java.sql.Date.valueOf(newCar.getDate());
+            pre.setDate(3, sqlDate);
+            pre.setString(4, newCar.getVIN());
+            pre.setString(5, newCar.getColour());
+            pre.setString(6, newCar.getLicensePlate());
+            pre.setString(7, newCar.getMake());
+            pre.setString(8, newCar.getLocation());
+            pre.setDouble(9, newCar.getPrice());
+            pre.setInt(10, newCar.getQuantity());
+
+            pre.executeUpdate();
+
+            checkInsert = pre.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+        } finally {
+            try {
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+
+        return checkInsert;
+    }
+
     //Fileter Car with Brand, Location, Date, Price, Price
     public List<Car> getFilteredCars(String selectedBrand, String selectedLocation, String selectedDate, String minPrice, String maxPrice) {
         List<Car> cars = new ArrayList<>();
@@ -423,6 +494,7 @@ public class DAO {
         return customer;
     }
 
+    //Add new Customer
     public boolean insert(Customer customer) {
         boolean checkInsert = false;
         //id, customerName, password, phone, int age, address
@@ -436,9 +508,52 @@ public class DAO {
             pre.setString(4, customer.getAddress());
             pre.setDate(5, java.sql.Date.valueOf(customer.getBirth()));
 
-            checkInsert = pre.executeUpdate() > 0 ? true : false;
+            checkInsert = pre.executeUpdate() > 0;
         } catch (Exception e) {
         }
         return checkInsert;
+    }
+
+    //Get Customer by Id
+    public Customer getCustomerById(String customerId) {
+        Customer customer = null;
+        String sql = "SELECT * FROM Customer WHERE customerId = ?";
+
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+            pre.setString(1, customerId);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                customer = createCustomerFromResultSet(rs);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return customer;
+    }
+
+    //id, customerName, password, phone, birth, address
+    public Customer createCustomerFromResultSet(ResultSet rs) throws SQLException {
+        String customerId = rs.getString("customerId");
+        String customerName = rs.getString("customerName");
+        String password = rs.getString("password");
+        String phone = rs.getString("phone");
+        LocalDate birth = rs.getDate("birth").toLocalDate();
+        String address = rs.getString("address");
+
+        return new Customer(customerId, customerName, password, phone, birth, address);
     }
 }

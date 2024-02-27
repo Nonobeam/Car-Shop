@@ -13,7 +13,7 @@ import java.util.List;
  * @author Nonobeam <https://github.com/Nonobeam>
  */
 
-//id, customerName, password, phone, int age, address
+//id, customerName, password, phone, birth, address
 public class Customer {
     private String customerId;
     private String customerName;
