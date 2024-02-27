@@ -57,7 +57,7 @@ public class CarController extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("car", car);
 
-        req.getRequestDispatcher("cartHistory/cartPage.jsp").forward(req, resp);
+        req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
     }
 
     private List<Car> search(String query) {
