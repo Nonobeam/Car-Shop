@@ -173,6 +173,16 @@ li:hover ul#submenu {
     display: inline;
 }
 
+.container {
+    position: relative;
+    top: 250px;
+}
+
+.btn {
+    position: relative;
+    left: 40%;
+}
+
 footer {
     background-color: #ff4b2b;
     color: white;

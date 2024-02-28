@@ -44,6 +44,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
+                            <p><strong>CarId:</strong> ${car.carId}</p>
+                            <p><strong>CustomerId:</strong> ${customer.customerId}</p>
                             <p><strong>Model:</strong> ${car.model}</p>
                             <p><strong>Date:</strong> ${car.date}</p>
                             <p><strong>VIN:</strong> ${car.VIN}</p>
@@ -61,11 +63,13 @@
                         <span><strong>Detail</strong></span>
                         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu tortor vitae nulla tempor sagittis non in urna. Vivamus quis feugiat quam, id rhoncus nunc. Etiam nibh justo, ullamcorper vitae nunc ut, scelerisque facilisis sapien. Integer eleifend eget justo tempor gravida. In dictum, dui quis faucibus bibendum, ligula nulla porttitor sapien, at pulvinar nisi odio non ex. Vivamus bibendum in diam eu iaculis. Duis tellus lorem, semper vel auctor vel, condimentum sed mauris. Nam dictum bibendum risus, at ultricies massa ultrices quis. Aenean hendrerit felis vitae sem porta consequat. Praesent auctor arcu sit amet purus scelerisque tincidunt. Morbi suscipit lacinia ligula, eu dapibus ligula consectetur ac. Vivamus sit amet dolor ut nibh suscipit ullamcorper. Integer volutpat mauris quis metus facilisis, nec convallis erat gravida. Suspendisse convallis eleifend tellus.</span>
                     </div>
-                    <form action="CarController?action=buy" method="post">
-                        <input type="hidden" name="carId" value="${carId}">
-                        <input type="hidden" name="customerId" value="${customerId}">
+                    <form action="CarController" method="get">
+                        <input type="hidden" name="action" value="validateInfo">
+                        <input type="hidden" name="carId" value="${car.carId}">
+                        <input type="hidden" name="customerId" value="${customer.customerId}">
                         <button type="submit">Buy Now</button>
                     </form>
+
                 </div>
             </div>
         </div>

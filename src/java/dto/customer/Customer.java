@@ -5,6 +5,7 @@
  */
 package dto.customer;
 
+import dto.car.Car;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Customer {
     private String phone;
     private LocalDate birth;
     private String address;
-    private List<Inventory> inventoryList;
+    private List<Car> inventoryList;
    
     
     // Constructor with customerId
@@ -86,8 +87,12 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
+    
+    public void setInventoryList(List<Car> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
 
-    public List<Inventory> getInventoryList() {
+    public List<Car> getInventoryList() {
         return inventoryList;
     }
 }

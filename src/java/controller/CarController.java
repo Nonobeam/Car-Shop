@@ -1,15 +1,12 @@
 package controller;
 
 import dao.DAO;
+import dao.carDAO;
 import dto.car.Car;
+import dto.customer.Customer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +18,16 @@ import javax.servlet.http.HttpSession;
  */
 public class CarController extends HttpServlet {
 
+    public carDAO carDao = new carDAO();
+    public DAO dao = new DAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String action = request.getParameter("action");
+        String customerId = request.getParameter("customerId");
+        String carId = request.getParameter("carId");
 
         if (action != null) {
             switch (action) {
@@ -37,12 +39,12 @@ public class CarController extends HttpServlet {
                     request.getRequestDispatcher("main.jsp").forward(request, response);
                     break;
                 case "info":
-                    String carId = request.getParameter("carId");
-                    info(request, response, carId);
+                    info(request, response, carId, customerId);
+                    break;
+                case "validateInfo":
+                    validateInfo(request, response, carId, customerId);
                     break;
                 case "buy":
-                    carId = request.getParameter("carId");
-                    String customerId = request.getParameter("customerId");
                     buy(request, response, carId, customerId);
                     break;
                 default:
@@ -51,37 +53,53 @@ public class CarController extends HttpServlet {
             }
         }
     }
-    
-    private void info(HttpServletRequest req, HttpServletResponse resp, String carId)  throws ServletException, IOException {
-        DAO dao = new DAO();
-        Car car = dao.getCarById(carId);
-        
-        String action = req.getParameter("action");
+
+    private void info(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId) throws ServletException, IOException {
+        Car car = carDao.getCarById(carId);
+        Customer customer = dao.getCustomerById(customerId);
+
         resp.setContentType("text/html;charset=UTF-8");
-        
+
         HttpSession session = req.getSession();
         session.setAttribute("car", car);
+        session.setAttribute("customer", customer);
 
         req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
     }
-    
-    private void buy(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId)  throws ServletException, IOException {
-        DAO dao = new DAO();
-        dao.buyCar(carId, customerId);
-        
-        String action = req.getParameter("action");
-        resp.setContentType("text/html;charset=UTF-8");
-        
 
-        req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
+    private void validateInfo(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId) throws ServletException, IOException {
+        Car car = carDao.getCarById(carId);
+        Customer customer = dao.getCustomerById(customerId);
+
+        resp.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = req.getSession();
+        session.setAttribute("car", car);
+        session.setAttribute("customer", customer);
+
+        req.getRequestDispatcher("car/buyPage.jsp").forward(req, resp);
+    }
+
+    private void buy(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId) throws ServletException, IOException {
+        Car car = carDao.getCarById(carId);
+        Customer customer = dao.getCustomerById(customerId);
+
+        resp.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = req.getSession();
+        session.setAttribute("car", car);
+        session.setAttribute("customer", customer);
+        
+        carDao.buyCar(carId, customerId);
+
+        req.getRequestDispatcher("customer/thankPage.jsp").forward(req, resp);
     }
 
     private List<Car> search(String query) {
-        DAO dao = new DAO();
         List<Car> searchResults = null;
-        
-        searchResults = dao.getCarByModel(query);
-        
+
+        searchResults = carDao.getCarByModel(query);
+
         return searchResults;
     }
 }

@@ -6,6 +6,7 @@
 package controller;
 
 import dao.DAO;
+import dao.carDAO;
 import dto.car.Car;
 import dto.customer.Customer;
 import java.io.IOException;
@@ -42,7 +43,9 @@ public class CustomerController extends HttpServlet {
 
     private void info(HttpServletRequest req, HttpServletResponse resp, String customerId) throws ServletException, IOException {
         DAO dao = new DAO();
+        carDAO carDao = new carDAO();
         Customer customer = dao.getCustomerById(customerId);
+        customer.setInventoryList(carDao.getAllCarByCustomerId(customerId));
 
         HttpSession session = req.getSession();
         session.setAttribute("customer", customer);

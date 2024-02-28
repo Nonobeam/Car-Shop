@@ -1,3 +1,4 @@
+<%@page import="dao.carDAO"%>
 <%@page import="dto.car.Productor"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.DAO"%>
@@ -49,8 +50,7 @@
                 <div class="customer-page">
                     <a class="customer-link" href="CustomerController?action=info&customerId=<%=currentUserId%>"><%= currentUser%></a>
                     <div id="customer-dropdown" class="dropdown-content">
-                        <a href="customer/customerInfo.jsp">My Account</a>
-                        <a href="cartHistory/cartPage.jsp">My Purchase</a>
+                        <a href="CustomerController?action=info&customerId=<%=currentUserId%>">My Account</a>
                         <a href="LogoutController?action=logout" class="logout">Logout</a>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                     <!-- Options for brands -->  
                     <option value="">All</option>
                     <%
-                        DAO dao = new DAO();
+                        carDAO dao = new carDAO();
                         String selectedBrand = request.getParameter("brand");
                         String selectedLocation = request.getParameter("location");
                         String selectedDate = request.getParameter("date");
@@ -184,9 +184,10 @@
                 <tr>
                     <%
                         }
+                        String currentUserId = (String) request.getSession().getAttribute("customerId");
                     %>
                     <td>
-                        <a href="CarController?action=info&carId=<%= car.getCarId()%>" class="car-cell">
+                        <a href="CarController?action=info&carId=<%= car.getCarId()%>&customerId=<%=currentUserId%>" class="car-cell">
                             <img src="<%= car.getImageUrl()%>" alt="<%= car.getModel()%>">
                             <span><%= car.getModel()%> Info</span>
                         </a>
