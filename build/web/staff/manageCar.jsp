@@ -1,12 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Template</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="cartPageStyle.css">
-        <script src="https://kit.fontawesome.com/05ec024090.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="staff/manageCarStyle.css"/>
+        <title>Manage Car</title>
     </head>
     <body>
         <header>
@@ -29,10 +29,32 @@
                 </div>
             </div>
         </nav>
-                    
+
+        <h1>All Cars</h1>
+
+        <form action="CarController" method="GET">
+            <input type="text" name="search" placeholder="Search by Car Name">
+            <input type="submit" value="Search">
+        </form>
+
+        <table>
+            <tr>
+                <th>Car ID</th>
+                <th>Car Name</th>
+                <th>Model</th>
+                <th>Date</th>
+                <th>VIN</th>
+                <th>Colour</th>
+                <th>License Plate</th>
+                <th>Make</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Options</th>
+            </tr>
+        </table>
+
         <footer>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>
         </footer>
-
     </body>
 </html>

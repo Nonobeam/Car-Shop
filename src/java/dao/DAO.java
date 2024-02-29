@@ -1,16 +1,11 @@
 package dao;
 
-import dto.car.Car;
-import dto.car.Productor;
 import dto.customer.Customer;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import util.DBUtils;
 
 /**

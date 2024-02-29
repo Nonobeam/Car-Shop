@@ -5,25 +5,30 @@
  */
 package dto.company;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Nonobeam <https://github.com/Nonobeam>
  */
 
-//Able to interact with private information
+//employeeId, employeeName password, phone, birth, role
 public class Employee {
     private String employeeId;
     private String employeeName;
-    private int age;
-    private String role;
     private String password;
+    private String phone;
+    private LocalDate birth;
+    private String role;
+    
 
-    public Employee(String employeeId, String name, int age, String role, String password) {
+    public Employee(String employeeId, String name, String password, String phone, LocalDate birth, String role) {
         this.employeeId = employeeId;
         this.employeeName = name;
-        this.age = age;
-        this.role = role;
         this.password = password;
+        this.phone = phone;
+        this.birth = birth;
+        this.role = role;
     }
 
     public String getEmployeeId() {
@@ -34,20 +39,12 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return employeeName;
+    public LocalDate getBirth() {
+        return birth;
     }
 
-    public void setName(String name) {
-        this.employeeName = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirth(LocalDate birth) {
+        this.birth = birth;
     }
 
     public String getRole() {
@@ -65,5 +62,22 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
     
 }

@@ -9,11 +9,13 @@
     <body>
         <div class="container" id="container">
             <div class="form-container log-in-container">
-                <form action="#">
+                <form action="LoginController" method="POST">
+                    <input type="hidden" name="formType" value="staff">
                     <h1>Login</h1>
-                    <input type="text" placeholder="Employee Id" />
-                    <input type="password" placeholder="Password" />
-                    <button>Log In</button>
+                    <input type="text" name="empId" placeholder="Employee Id" required/>
+                    <input type="password" name="pwd" placeholder="Password" required/>
+                    <p style="color:red;display:inline-block">${message}</p>
+                    <button name="action" type="submit" value="Login">Log In</button>
                 </form>
             </div>
             <div class="overlay-container">

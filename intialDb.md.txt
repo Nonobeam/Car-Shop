@@ -8,9 +8,11 @@ USE CarManagementDB;
 CREATE TABLE Employee (
     employeeId VARCHAR(5) PRIMARY KEY,
     employeeName VARCHAR(25) NOT NULL,
-    birth DATE,
-    role VARCHAR(10),
-    password VARCHAR(50) NOT NULL
+    password VARCHAR(100),
+    phone varchar(11), 
+    birth Date,
+    role VARCHAR(7)
+    
 );
 
 -- Create Productor Table
@@ -73,8 +75,8 @@ CREATE TABLE Customer (
     customerName VARCHAR(25),
     password VARCHAR(100),
     phone VARCHAR(11),
-    birth DATE,
-    address VARCHAR(20)  
+    address VARCHAR(20)  ,
+    birth Date
 );
 
 -- Create Table Order between Customer and Inventory

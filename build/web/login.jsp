@@ -10,6 +10,7 @@
         <div class="container" id="container">
             <div class="form-container log-in-container">
                 <form action="LoginController" method="POST">
+                    <input type="hidden" name="formType" value="customer">
                     <h1>Login</h1>
                     <input type="text" name="phone" placeholder="Phone Number" required/>
                     <input type="password" name="pwd" placeholder="Password" required/>
