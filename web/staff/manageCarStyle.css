@@ -173,6 +173,11 @@ li:hover ul#submenu {
     display: inline;
 }
 
+.manage-warehouse {
+    position: relative;
+    top: 130px;
+}
+
 h1 {
     text-align: center;
     margin-top: 20px;

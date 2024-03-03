@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.DAO;
 import dao.EmployeeDAO;
+import dao.carDAO;
+import dto.car.Car;
 import dto.company.Employee;
 import dto.customer.Customer;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +55,10 @@ public class LoginController extends HttpServlet {
                 String password = req.getParameter("pwd");
 
                 EmployeeDAO empDao = new EmployeeDAO();
+                carDAO carDao = new carDAO();
+                
                 Employee employee = empDao.checkEmployeeLogin(empId, password);
+                List<Car> carList = carDao.getAllCars();
 
                 if (employee == null) {
                     req.setAttribute("message", "Failed to login due to incorrect credentials.");
@@ -67,6 +68,9 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("employee", employee);
                     session.setAttribute("employeeId", employee.getEmployeeId());
                     session.setAttribute("employeeName", employee.getEmployeeName());
+                    
+                    //for manage car
+                    session.setAttribute("carList", carList);
 
                     req.getRequestDispatcher("staff/manageCar.jsp").forward(req, resp);
                 }

@@ -110,6 +110,48 @@ public class carDAO {
         return checkInsert;
     }
 
+    
+    //Update a Car with Car
+    public boolean updateCar(Car updatedCar) {
+        boolean checkUpdate = false;
+        String sql = "UPDATE Car SET model = ?, date = ?, VIN = ?, colour = ?, licensePlate = ?, make = ?, location = ?, price = ?, image = ?, quantity = ? WHERE carId = ?";
+
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+
+            pre.setString(1, updatedCar.getModel());
+            java.sql.Date sqlDate = java.sql.Date.valueOf(updatedCar.getDate());
+            pre.setDate(2, sqlDate);
+            pre.setString(3, updatedCar.getVIN());
+            pre.setString(4, updatedCar.getColour());
+            pre.setString(5, updatedCar.getLicensePlate());
+            pre.setString(6, updatedCar.getMake());
+            pre.setString(7, updatedCar.getLocation());
+            pre.setDouble(8, updatedCar.getPrice());
+            pre.setString(9, updatedCar.getImageUrl());
+            pre.setInt(10, updatedCar.getQuantity());
+            pre.setString(11, updatedCar.getCarId());
+
+            checkUpdate = pre.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            // Handle exception
+        } finally {
+            try {
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // Handle exception
+            }
+        }
+
+        return checkUpdate;
+    }
+
     //Fileter Car with Brand, Location, Date, Price, Price
     public List<Car> getFilteredCars(String selectedBrand, String selectedLocation, String selectedDate, String minPrice, String maxPrice) {
         List<Car> cars = new ArrayList<>();

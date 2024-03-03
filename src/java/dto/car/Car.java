@@ -12,6 +12,8 @@ package dto.car;
 
 import java.time.LocalDate;
 
+
+//carId, model, price, date, VIN, colour, licensePlate, make, Location, quantity
 public class Car {
     private String carId;
     private String model;
