@@ -22,7 +22,7 @@
                     String currentUser = (String) request.getSession().getAttribute("employeeName");
                 %>
                 <div class="customer-page">
-                    <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
+                    <a class="customer-link" href="customer/customerInfo.jsp">HI <%=currentUser%>, wish you a good day</a>
                     <div id="customer-dropdown" class="dropdown-content">
                         <a href="LogoutController?action=logout" class="logout">Logout</a>
                     </div>
@@ -34,10 +34,12 @@
         <div class="manage-warehouse">
             <h1>All Cars</h1>
             <form action="CarController" method="GET">
-                <input type="text" name="search" placeholder="Search by Car Name">
+                <input class="search-box" type="text" name="search" placeholder="Search by Car Name">
                 <input type="submit" value="Search">
             </form>
 
+            <p style="color:red;display:inline-block">${message}</p>
+            
             <table>
                 <tr>
                     <th>Car ID</th>
@@ -50,60 +52,35 @@
                     <th>Location</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Action</th>
+                    <th>Image</th>
+                    <th>Edit</th>
                 </tr>
-                <c:forEach items="${carList}" var="car">
-                    <tr>
-                        <td id="carId_${car.carId}">${car.carId}</td>
-                        <td id="model_${car.carId}">${car.model}</td>
-                        <td id="date_${car.carId}">${car.date}</td>
-                        <td id="VIN_${car.carId}">${car.VIN}</td>
-                        <td id="colour_${car.carId}">${car.colour}</td>
-                        <td id="licensePlate_${car.carId}">${car.licensePlate}</td>
-                        <td id="make_${car.carId}">${car.make}</td>
-                        <td id="location_${car.carId}">${car.location}</td>
-                        <td id="price_${car.carId}">${car.price}</td>
-                        <td id="quantity_${car.carId}">${car.quantity}</td>
-                        <td>
-                            <form>
-                                <input type="button" value="Edit" onclick="toggleInputs('${car.carId}', this)">
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <form action="CarController">
+                    <c:forEach items="${carList}" var="car">
+                        <tr>
+                            <td><input type="text" name="carId" value=${car.carId}></td>
+                            <td><input type="text" name="model" value="${car.model}"></td>
+                            <td><input type="text" name="date" value="${car.date}"></td>
+                            <td><input type="text" name="VIN" value="${car.VIN}"></td>
+                            <td><input type="text" name="colour" value="${car.colour}"></td>
+                            <td><input type="text" name="licensePlate" value="${car.licensePlate}"></td>
+                            <td><input type="text" name="make" value="${car.make}"></td>
+                            <td><input type="text" name="location" value="${car.location}"></td>
+                            <td><input type="text" name="price" value="${car.price}"></td>
+                            <td><input type="text" name="quantity" value="${car.quantity}"></td>
+                            <td><input type="text" name="imageUrl" value="${car.imageUrl}"></td>
+                            <td>
+                                <input type="submit" value="Edit">
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </form>
             </table>
-
         </div>
 
 
         <footer>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>
         </footer>
-
-        <script>
-            function toggleInputs(carId, button) {
-                var attributes = ['model', 'date', 'VIN', 'colour', 'licensePlate', 'make', 'location', 'price', 'quantity'];
-                for (var i = 0; i < attributes.length; i++) {
-                    var tdElement = document.getElementById(attributes[i] + '_' + carId);
-                    if (tdElement.children.length === 0) {
-                        var inputElement = document.createElement('input');
-                        inputElement.type = 'text';
-                        inputElement.name = attributes[i];
-                        inputElement.value = tdElement.innerText;
-                        inputElement.readOnly = true;
-                        tdElement.innerHTML = '';
-                        tdElement.appendChild(inputElement);
-                    } else {
-                        var inputElement = tdElement.children[0];
-                        tdElement.innerHTML = inputElement.value;
-                    }
-                }
-                if (button.value === 'Edit') {
-                    button.value = 'Save';
-                } else {
-                    button.value = 'Edit';
-                }
-            }
-        </script>
     </body>
 </html>

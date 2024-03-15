@@ -1,8 +1,9 @@
 -- Create Database
 CREATE DATABASE CarManagementDB;
-
+GO
 -- Use the Database
 USE CarManagementDB;
+GO
 
 -- Create Employee Table
 CREATE TABLE Employee (
@@ -11,7 +12,7 @@ CREATE TABLE Employee (
     password VARCHAR(100),
     phone varchar(11), 
     birth Date,
-    role VARCHAR(7)
+    role VARCHAR(25)
     
 );
 
@@ -26,13 +27,14 @@ CREATE TABLE Productor (
 CREATE TABLE Car (
     carId VARCHAR(5) PRIMARY KEY,
     model VARCHAR(20),
+    price DECIMAL(10, 2),
     date DATE,
     VIN VARCHAR(17),
     colour VARCHAR(10),
     licensePlate VARCHAR(10),
-    make VARCHAR(5),
+    make VARCHAR(5) NOT NULL,
     location VARCHAR(10),
-    price DECIMAL(10, 2),
+    imageUrl VARCHAR(MAX),
     quantity INT,
     FOREIGN KEY (make) REFERENCES Productor(productorId)
 );
@@ -53,7 +55,7 @@ CREATE TABLE Inventory (
 
 -- Create InventoryCar Table (Many-to-Many relationship between Inventory and Car)
 CREATE TABLE InventoryCar (
-    inventoryId VARCHAR(5),
+    inventoryId INT,
     carId VARCHAR(5),
     PRIMARY KEY (inventoryId, carId),
     FOREIGN KEY (inventoryId) REFERENCES Inventory(inventoryId),
@@ -82,8 +84,54 @@ CREATE TABLE Customer (
 -- Create Table Order between Customer and Inventory
 CREATE TABLE Orders (
     customerId INT,
-    inventoryId VARCHAR(5),
+    inventoryId INT,
     PRIMARY KEY (customerId, inventoryId),
     FOREIGN KEY (customerId) REFERENCES Customer(customerId),
     FOREIGN KEY (inventoryId) REFERENCES Inventory(inventoryId)
 );
+
+GO
+
+-- Insert sample data into Productor table
+INSERT INTO Productor (productorId, productorName, address) VALUES
+('P001', 'Toyota', '123 Main St'),
+('P002', 'Honda', '456 Elm St'),
+('P003', 'Ford', '789 Oak St');
+
+GO
+-- Insert sample data into Car table
+INSERT INTO Car (carId, model,  price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity)
+VALUES 
+('C001', 'Toyota Camry', 30000.00, '2023-01-15', '1HGBH41JXMN109186', 'Black', 'ABC123', 'P001', 'Showroom A', 'https://i1-vnexpress.vnecdn.net/2022/03/15/toyotacamry2jpeg-1647331125.jpg?w=750&h=450&q=100&dpr=1&fit=crop&s=L-BB3hdAEjvqgmiGZntf1A' , 5),
+
+('C002', 'Honda Civic', 25000.00, '2022-12-20', '2HGES16581H567609', 'Silver', 'XYZ456', 'P002', 'Showroom B', 'https://hondakiengiang.com.vn/public/upload/images/hinhsanpham/honda-civic-type-r-48421686249491.png', 8),
+
+('C003', 'Ford Mustang', 35000.00,  '2023-02-10', '1FA6P8TH5J5104056', 'Red', 'DEF789', 'P001', 'Showroom C', 'https://vcdn-vnexpress.vnecdn.net/2023/08/01/Ford-Mustang-EcoBoost-1-7192-1690879675.jpg', 3),
+
+('C004', 'Chevrolet Cruze', 28000.00, '2023-03-05', '1G1PE5SB1F7279839', 'White', 'GHI012', 'P003', 'Showroom D', 'https://thanhnien.mediacdn.vn/Uploaded/chicuong/2022_09_18/chevrolet-cruze-2023-4-ec17-2859.jpg', 6),
+
+('C005', 'BMW 3 Series', 40000.00, '2023-04-12', 'WBA3A5C59CF257691', 'Blue', 'JKL345', 'P002', 'Showroom E', 'https://cdn.tuoitre.vn/zoom/480_300/471584752817336320/2023/9/17/2023-bmw-3-series-114-1652798465-169489605368892395589-154-242-1244-1986-crop-1694896063470439662758.jpg', 4);
+
+('C006', 'Mercedes-BenzC-Class', 45000.00, '2023-05-20', 'WDDGF8AB6DR250749', 'Black', 'MNO678', 'P001', 'Showroom F', 'https://s1.cdn.autoevolution.com/images/gallery/MERCEDESBENZCCLASSSEDAN-6697_1.jpg', 7),
+
+('C007', 'Audi A4', 42000.00, '2023-06-10', 'WAUAFAFL1CN000414', 'White', 'PQR901', 'P003', 'Showroom G', 'https://www.cars-data.com/pictures/audi/audi-a4_2345_5.jpg', 6),
+
+('C008', 'Volvo S60', 48000.00, '2023-07-15', 'LYV402FK8KB208565', 'Gray', 'STU123', 'P002', 'Showroom H', 'https://cdn.jdpower.com/Models/640x480/2019-Volvo-S60-Inscription.jpg', 4),
+
+('C009', 'Lexus IS', 43000.00, '2023-08-20', 'JTHCF1D21F5020624', 'Silver', 'VWX456', 'P001', 'Showroom I', 'https://images.squarespace-cdn.com/content/v1/554b0970e4b0f4613ce2e49e/1621852177771-Q51YDD1VJYVUJ23AP7UV/ke17ZwdGBToddI8pDm48kA6WzeJfmeR6A6uGiDjss5BZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzUWi9GtyE6vR0Uhv8F3DAx2fT8-JTNDs6roaHUZ1cEBNpO5l2r08O5gPjs_1L3rY/IS200t.jpg?format=750w', 3),
+
+('C010', 'Tesla Model 3', 55000.00, '2023-09-25', '5YJ3E1EA1KF405384', 'Red', 'YZA789', 'P003', 'Showroom J', 'https://cdn.motor1.com/images/mgl/3Ge2z/s1/2022-tesla-model-3-performance.jpg', 5);
+
+GO
+
+INSERT INTO Employee (employeeId, employeeName, password, phone, birth, role)
+VALUES 
+('E001', 'John Doe', 'password1', '12345678901', '1990-05-15', 'manager'),
+
+('E002', 'Jane Smith', 'password2', '23456789012', '1991-08-20', 'assistant'),
+
+('E003', 'David Johnson', 'password3', '34567890123', '1992-10-25', 'clerk'),
+
+('E004', 'Emily Brown', 'password4', '45678901234', '1993-12-30', 'manager'),
+
+('E005', 'Michael Wilson', 'password5', '56789012345', '1994-03-05', 'assistant');

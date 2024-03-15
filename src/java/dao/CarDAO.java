@@ -17,7 +17,7 @@ import util.DBUtils;
  * @author Nonobeam <https://github.com/Nonobeam>
  */
 //id, customerName, password, phone, int age, address
-public class carDAO {
+public class CarDAO {
 
     Connection connection;
     PreparedStatement pre;
@@ -554,7 +554,7 @@ public class carDAO {
                 rs.getString("licensePlate"),
                 rs.getString("make"),
                 rs.getString("location"),
-                rs.getString("image"),
+                rs.getString("imageUrl"),
                 rs.getInt("quantity")
         );
     }

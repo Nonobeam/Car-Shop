@@ -1,10 +1,11 @@
 package controller;
 
 import dao.DAO;
-import dao.carDAO;
+import dao.CarDAO;
 import dto.car.Car;
 import dto.customer.Customer;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpSession;
  */
 public class CarController extends HttpServlet {
 
-    public carDAO carDao = new carDAO();
+    public CarDAO carDao = new CarDAO();
     public DAO dao = new DAO();
 
     @Override
@@ -46,6 +47,9 @@ public class CarController extends HttpServlet {
                     break;
                 case "buy":
                     buy(request, response, carId, customerId);
+                    break;
+                case "edit":
+                    edit(request, response);
                     break;
                 default:
                     // Do nothing or handle the default case as needed
@@ -101,5 +105,39 @@ public class CarController extends HttpServlet {
         searchResults = carDao.getCarByModel(query);
 
         return searchResults;
+    }
+    
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+        
+        String carId = req.getParameter("carId");
+        String model = req.getParameter("model");
+        String reqPrice = req.getParameter("price");
+        double price = Double.parseDouble(reqPrice);
+        String reqDate = req.getParameter("date");
+        LocalDate date = LocalDate.parse(reqDate);
+        String VIN = req.getParameter("VIN");
+        String colour = req.getParameter("colour");
+        String licensePlate = req.getParameter("licensePlate");
+        String make = req.getParameter("make");
+        String location = req.getParameter("location");
+        String imageUrl = req.getParameter("imageUrl");
+        String reqQuantity = req.getParameter("quantity");
+        int quantity = Integer.parseInt(reqQuantity);
+        
+        
+        Car car = new Car(carId, model, price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity);
+        
+        boolean checkUpdate = carDao.updateCar(car);
+        
+        HttpSession session = req.getSession();
+        if (checkUpdate == false){
+            session.setAttribute("message", "Update fail with data" + carId + " " + model + " " + price + " " + date + " " + VIN + " " + colour + " " + licensePlate + " " + make + " " + location + " " + imageUrl + " " + quantity);
+        }else{
+            session.setAttribute("message", "Update successful with data" + carId + " " + model + " " + price + " " + date + " " + VIN + " " + colour + " " + licensePlate + " " + make + " " + location + " " + imageUrl + " " + quantity);
+        }
+        
+
+        req.getRequestDispatcher("manageCar.jsp").forward(req, resp);
     }
 }

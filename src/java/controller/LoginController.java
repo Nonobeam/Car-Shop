@@ -2,7 +2,7 @@ package controller;
 
 import dao.DAO;
 import dao.EmployeeDAO;
-import dao.carDAO;
+import dao.CarDAO;
 import dto.car.Car;
 import dto.company.Employee;
 import dto.customer.Customer;
@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
         }
 
         String formUser = req.getParameter("formType");
-        if (formUser.equalsIgnoreCase("employee")) {
+        if (formUser.equalsIgnoreCase("customer")) {
             if ("login".equalsIgnoreCase(action)) {
                 String phone = req.getParameter("phone");
                 String password = req.getParameter("pwd");
@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
                 String password = req.getParameter("pwd");
 
                 EmployeeDAO empDao = new EmployeeDAO();
-                carDAO carDao = new carDAO();
+                CarDAO carDao = new CarDAO();
                 
                 Employee employee = empDao.checkEmployeeLogin(empId, password);
                 List<Car> carList = carDao.getAllCars();

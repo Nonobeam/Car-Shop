@@ -1,4 +1,4 @@
-<%@page import="dao.carDAO"%>
+<%@page import="dao.CarDAO"%>
 <%@page import="dto.car.Productor"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.DAO"%>
@@ -18,6 +18,20 @@
     <body>
         <header>
         </header>
+        
+        <%  
+            CarDAO carDao = new CarDAO();
+            List<Car> carList = carDao.getAllCars();
+            if (carList.isEmpty()){
+        %>
+        <span style="color: red">Connect fail to database</span>
+        <% 
+            }else{
+        %>
+        <span style="color: blue">Connect successful to database</span>
+        <% 
+            }
+        %>
 
         <nav class="dropdownmenu">
             <div class="navigation">
@@ -68,6 +82,8 @@
             </div>
         </nav>
 
+            
+<!--        Car find navigation              -->
         <div class="content">
             <button id="closeNav">&#10006;</button>
             <h2>FIND YOUR CAR</h2>
@@ -77,7 +93,7 @@
                     <!-- Options for brands -->  
                     <option value="">All</option>
                     <%
-                        carDAO dao = new carDAO();
+                        CarDAO dao = new CarDAO();
                         String selectedBrand = request.getParameter("brand");
                         String selectedLocation = request.getParameter("location");
                         String selectedDate = request.getParameter("date");
@@ -170,7 +186,7 @@
 
         %>
         <div class="car-status">
-            <span>Oops! Sorry, we are currently <span style="color: red">out of stock</span> for that car. However, we are working diligently to replenish our inventory. If you would like us to notify you as soon as the car becomes available, please leave your contact information <a style="text-decoration: underline; color: blue">here</a>. Thank you for your patience!</span>
+            <span>Oops! Sorry, we are currently <span style="color: red">out of stock</span> for that car. However, we are working diligently to replenish our inventory. If you would like us to notify you as soon as the car becomes available, please leave your contact information <a href="#" style="text-decoration: underline; color: blue">here</a>. Thank you for your patience!</span>
         </div>
         <% } %>
 
