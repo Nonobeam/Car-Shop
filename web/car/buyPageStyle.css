@@ -183,6 +183,25 @@ li:hover ul#submenu {
     left: 40%;
 }
 
+.btn {
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn:hover {
+    background-color: red;
+}
+
+
 footer {
     background-color: #ff4b2b;
     color: white;

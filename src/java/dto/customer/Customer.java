@@ -16,17 +16,23 @@ import java.util.List;
 
 //id, customerName, password, phone, birth, address
 public class Customer {
-    private String customerId;
+    private int customerId;
     private String customerName;
     private String password;
     private String phone;
     private LocalDate birth;
     private String address;
     private List<Car> inventoryList;
-   
     
-    // Constructor with customerId
-    public Customer(String customerId, String customerName, String password, String phone, LocalDate birth, String address) {
+    public Customer(String customerName, String password, String phone, LocalDate birth, String address) {
+        this.customerName = customerName;
+        this.password = password;
+        this.phone = phone;
+        this.birth = birth;
+        this.address = address;
+    }
+
+    public Customer(int customerId, String customerName, String password, String phone, LocalDate birth, String address) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.password = password;
@@ -34,14 +40,13 @@ public class Customer {
         this.birth = birth;
         this.address = address;
     }
-    
-    // Constructor
-    public Customer(String customerName, String password, String phone, LocalDate birth, String address) {
-        this.customerName = customerName;
-        this.password = password;
-        this.phone = phone;
-        this.birth = birth;
-        this.address = address;
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getCustomerName() {
@@ -51,17 +56,13 @@ public class Customer {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getCustomerId() {
-        return customerId;
     }
 
     public String getPhone() {
@@ -87,12 +88,13 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public void setInventoryList(List<Car> inventoryList) {
-        this.inventoryList = inventoryList;
-    }
 
     public List<Car> getInventoryList() {
         return inventoryList;
     }
+
+    public void setInventoryList(List<Car> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
+   
 }

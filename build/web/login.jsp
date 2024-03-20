@@ -12,14 +12,20 @@
                 <form action="LoginController" method="POST">
                     <input type="hidden" name="formType" value="customer">
                     <h1>Login</h1>
-                    <input type="text" name="phone" placeholder="Phone Number" required/>
+                    <input 
+                        id="phone" 
+                        name="phone"
+                        type="text" 
+                        required 
+                        pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                        placeholder="xxx-xxx-xxxx" />
                     <input type="password" name="pwd" placeholder="Password" required/>
 <!--                    <a href="#">Forgot your password?</a>-->
                     <button name="action" type="submit" value="Login">Log In</button>
                     <span class='register'>Don't have an account?</span>
                     <span class='register'>Create new account now. <a class="register-btn" href="register.jsp">Register</a></span>
                     <span class="staff-login">Staff Login Only <a class="staff-login-btn" href="staffLogin.jsp">Staff-Login</a></span>
-                    <p style="color:red;display:inline-block">${message}</p>
+                    <p style="color:red;display:inline-block">${loginMessage}</p>
                 </form>
             </div>
             <div class="overlay-container">

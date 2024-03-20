@@ -32,7 +32,7 @@ public class DAO {
             rs = pre.executeQuery();
             while (rs.next()) {
                 customer = new Customer(
-                        rs.getString("customerId"),
+                        rs.getInt("customerId"),
                         rs.getString("customerName"),
                         rs.getString("password"),
                         rs.getString("phone"),
@@ -51,10 +51,11 @@ public class DAO {
     public boolean insert(Customer customer) {
         boolean checkInsert = false;
         //id, customerName, password, phone, int age, address
-        String query = "insert into Customer(customerName, password, phone, address, birth) values(?, ?, ?, ?, ?)";
+        // auto increase id inside database
+        String query = "INSERT INTO Customer(customerName, password, phone, address, birth) VALUES (?, ?, ?, ?, ?)";
         try {
-            connection = new DBUtils().getConnection();
-            PreparedStatement pre = connection.prepareStatement(query);
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(query);
             pre.setString(1, customer.getCustomerName());
             pre.setString(2, customer.getPassword());
             pre.setString(3, customer.getPhone());
@@ -62,20 +63,20 @@ public class DAO {
             pre.setDate(5, java.sql.Date.valueOf(customer.getBirth()));
 
             checkInsert = pre.executeUpdate() > 0;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
         }
         return checkInsert;
     }
 
     //Get Customer by Id
-    public Customer getCustomerById(String customerId) {
+    public Customer getCustomerById(int customerId) {
         Customer customer = null;
         String sql = "SELECT * FROM Customer WHERE customerId = ?";
 
         try {
             connection = DBUtils.getConnection();
             pre = connection.prepareStatement(sql);
-            pre.setString(1, customerId);
+            pre.setInt(1, customerId);
             rs = pre.executeQuery();
             while (rs.next()) {
                 customer = createCustomerFromResultSet(rs);
@@ -100,7 +101,7 @@ public class DAO {
 
     //id, customerName, password, phone, birth, address
     public Customer createCustomerFromResultSet(ResultSet rs) throws SQLException {
-        String customerId = rs.getString("customerId");
+        int customerId = rs.getInt("customerId");
         String customerName = rs.getString("customerName");
         String password = rs.getString("password");
         String phone = rs.getString("phone");

@@ -1,6 +1,6 @@
+<%@page import="dao.CarDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="dto.car.Car"%>
-<%@page import="dao.carDAO"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -78,13 +78,9 @@
 
         <div class="cart">
             <%
-                // Assuming you have already retrieved the customerId
-                String customerId = (String) request.getSession().getAttribute("customerId");
+                Integer customerId = (Integer) request.getSession().getAttribute("customerId");
 
-                // Create an instance of your DAO class
-                carDAO dao = new carDAO();
-
-                // Get all cars by customer ID
+                CarDAO dao = new CarDAO();
                 List<Car> cars = dao.getAllCarByCustomerId(customerId);
             %>
 
@@ -94,7 +90,7 @@
                 // Check if there are cars for the customer
                 if (cars.isEmpty()) {
             %>
-            <p>Oops. You didn't buy any car now. If you need any help, please contact us at <a href="footer-phone">here</a>.</p>
+            <p>Oops. You didn't buy any car now. If you need any help, please contact us at <a href="#footer-phone">here</a>.</p>
             <%
             } else {
             %>
@@ -107,7 +103,7 @@
                     <th>License Plate</th>
                     <th>Make</th>
                     <th>Location</th>
-                    <th>Price</th>
+                    <th>Price/Car</th>
                 </tr>
 
                 <%
@@ -134,7 +130,7 @@
 
 
         <footer>
-            <table class="footer-phone">
+            <table id="footer-phone">
                 <tr>
                     <td>
                         <span>(tel+):</span>

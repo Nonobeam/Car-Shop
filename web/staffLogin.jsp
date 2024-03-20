@@ -13,9 +13,9 @@
                     <input type="hidden" name="formType" value="staff">
                     <h1>Login</h1>
                     <input type="text" name="empId" placeholder="Employee Id" required/>
-                    <input type="password" name="pwd" placeholder="Password" required/>
-                    <p style="color:red;display:inline-block">${message}</p>
+                    <input type="password" name="pwd" placeholder="Password" required/> 
                     <button name="action" type="submit" value="Login">Log In</button>
+                    <p style="color:red;display:inline-block">${loginMessage}</p>
                 </form>
             </div>
             <div class="overlay-container">

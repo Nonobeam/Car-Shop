@@ -33,11 +33,7 @@ public class CarController extends HttpServlet {
         if (action != null) {
             switch (action) {
                 case "search":
-                    String query = request.getParameter("query");
-                    List<Car> searchResults = search(query);
-
-                    request.setAttribute("search", searchResults);
-                    request.getRequestDispatcher("main.jsp").forward(request, response);
+                    search(request, response);
                     break;
                 case "info":
                     info(request, response, carId, customerId);
@@ -59,21 +55,31 @@ public class CarController extends HttpServlet {
     }
 
     private void info(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId) throws ServletException, IOException {
-        Car car = carDao.getCarById(carId);
-        Customer customer = dao.getCustomerById(customerId);
-
         resp.setContentType("text/html;charset=UTF-8");
+        Car car = carDao.getCarById(carId);
 
-        HttpSession session = req.getSession();
-        session.setAttribute("car", car);
-        session.setAttribute("customer", customer);
+        if (customerId == null || customerId.equals("null")) {
+            HttpSession session = req.getSession();
+            session.setAttribute("car", car);
+//            session.setAttribute("customer", null);
+            req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
+        } else {
+            int id = Integer.parseInt(customerId);
+            Customer customer = dao.getCustomerById(id);
 
-        req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
+            HttpSession session = req.getSession();
+            session.setAttribute("car", car);
+            session.setAttribute("customer", customer);
+
+            req.getRequestDispatcher("car/carPage.jsp").forward(req, resp);
+        }
     }
 
     private void validateInfo(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId) throws ServletException, IOException {
         Car car = carDao.getCarById(carId);
-        Customer customer = dao.getCustomerById(customerId);
+
+        int id = Integer.parseInt(customerId);
+        Customer customer = dao.getCustomerById(id);
 
         resp.setContentType("text/html;charset=UTF-8");
 
@@ -86,30 +92,44 @@ public class CarController extends HttpServlet {
 
     private void buy(HttpServletRequest req, HttpServletResponse resp, String carId, String customerId) throws ServletException, IOException {
         Car car = carDao.getCarById(carId);
-        Customer customer = dao.getCustomerById(customerId);
+
+        int id = Integer.parseInt(customerId);
+        Customer customer = dao.getCustomerById(id);
 
         resp.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = req.getSession();
         session.setAttribute("car", car);
         session.setAttribute("customer", customer);
-        
-        carDao.buyCar(carId, customerId);
 
+        String checkBuy = carDao.buyCar(carId, id);
+
+        req.setAttribute("buyMessage", checkBuy);
         req.getRequestDispatcher("customer/thankPage.jsp").forward(req, resp);
     }
 
-    private List<Car> search(String query) {
-        List<Car> searchResults = null;
+    private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+        String url = "staff/manageCar.jsp";
 
-        searchResults = carDao.getCarByModel(query);
+        String query = req.getParameter("query");
 
-        return searchResults;
+        List<Car> cars = carDao.getCarByModel(query);
+
+        if (cars.isEmpty()) {
+            req.setAttribute("searchMessage", "Error while search for cars");
+        } else {
+            req.removeAttribute("searchMessage");
+        }
+
+        req.setAttribute("search", cars);
+        req.getRequestDispatcher(url).forward(req, resp);
     }
-    
+
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
-        
+        String url = "staff/manageCar.jsp";
+
         String carId = req.getParameter("carId");
         String model = req.getParameter("model");
         String reqPrice = req.getParameter("price");
@@ -124,20 +144,17 @@ public class CarController extends HttpServlet {
         String imageUrl = req.getParameter("imageUrl");
         String reqQuantity = req.getParameter("quantity");
         int quantity = Integer.parseInt(reqQuantity);
-        
-        
-        Car car = new Car(carId, model, price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity);
-        
-        boolean checkUpdate = carDao.updateCar(car);
-        
-        HttpSession session = req.getSession();
-        if (checkUpdate == false){
-            session.setAttribute("message", "Update fail with data" + carId + " " + model + " " + price + " " + date + " " + VIN + " " + colour + " " + licensePlate + " " + make + " " + location + " " + imageUrl + " " + quantity);
-        }else{
-            session.setAttribute("message", "Update successful with data" + carId + " " + model + " " + price + " " + date + " " + VIN + " " + colour + " " + licensePlate + " " + make + " " + location + " " + imageUrl + " " + quantity);
-        }
-        
 
-        req.getRequestDispatcher("manageCar.jsp").forward(req, resp);
+        Car car = new Car(carId, model, price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity);
+
+        String checkUpdate = carDao.updateCar(car);
+
+//        if (checkUpdate == false) {
+//            req.setAttribute("searchMessage", "Update fail with data" checkUpdate);
+//        } else {
+//            req.setAttribute("searchMessage", "Update successful with data" + carId + " " + model + " " + price + " " + date + " " + VIN + " " + colour + " " + licensePlate + " " + make + " " + location + " " + imageUrl + " " + quantity);
+//        }
+        req.setAttribute("searchMessage", checkUpdate + car.getCarId());
+        req.getRequestDispatcher("StaffController?action=search&query=").forward(req, resp);
     }
 }

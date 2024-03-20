@@ -2,12 +2,9 @@ package controller;
 
 import dao.DAO;
 import dao.EmployeeDAO;
-import dao.CarDAO;
-import dto.car.Car;
 import dto.company.Employee;
 import dto.customer.Customer;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +35,7 @@ public class LoginController extends HttpServlet {
                 Customer customer = dao.checkCustomerLogin(phone, password);
 
                 if (customer == null) {
-                    req.setAttribute("message", "Failed to login due to incorrect credentials.");
+                    req.setAttribute("loginMessage", "Failed to login due to incorrect credentials.");
                     req.getRequestDispatcher("login.jsp").forward(req, resp);
                 } else {
                     HttpSession session = req.getSession();
@@ -49,29 +46,22 @@ public class LoginController extends HttpServlet {
                     req.getRequestDispatcher("main.jsp").forward(req, resp);
                 }
             }
-        }else if(formUser.equalsIgnoreCase("staff")){
+        } else if (formUser.equalsIgnoreCase("staff")) {
             if ("login".equalsIgnoreCase(action)) {
                 String empId = req.getParameter("empId");
                 String password = req.getParameter("pwd");
 
                 EmployeeDAO empDao = new EmployeeDAO();
-                CarDAO carDao = new CarDAO();
-                
                 Employee employee = empDao.checkEmployeeLogin(empId, password);
-                List<Car> carList = carDao.getAllCars();
 
                 if (employee == null) {
-                    req.setAttribute("message", "Failed to login due to incorrect credentials.");
+                    req.setAttribute("loginMessage", "Failed to login due to incorrect credentials.");
                     req.getRequestDispatcher("staffLogin.jsp").forward(req, resp);
                 } else {
                     HttpSession session = req.getSession();
                     session.setAttribute("employee", employee);
                     session.setAttribute("employeeId", employee.getEmployeeId());
                     session.setAttribute("employeeName", employee.getEmployeeName());
-                    
-                    //for manage car
-                    session.setAttribute("carList", carList);
-
                     req.getRequestDispatcher("staff/manageCar.jsp").forward(req, resp);
                 }
             }

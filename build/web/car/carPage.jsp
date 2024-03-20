@@ -21,6 +21,7 @@
 
                 <%
                     String currentUser = (String) request.getSession().getAttribute("customerName");
+                    if (currentUser != null) {
                 %>
                 <div class="customer-page">
                     <a class="customer-link" href="customer/customerInfo.jsp"><%=currentUser%></a>
@@ -28,6 +29,17 @@
                         <a href="../LogoutController?action=logout" class="logout">Logout</a>
                     </div>
                 </div>
+                <%
+                } else {
+                %>
+                <div class="customer-page">
+                    <div id="customer-dropdown" class="dropdown-content">
+                        <a href="../LoginController?action=login" class="login">Login</a>
+                    </div>
+                </div>
+                <%
+                    }
+                %>
             </div>
         </nav>
 
@@ -63,13 +75,22 @@
                         <span><strong>Detail</strong></span>
                         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu tortor vitae nulla tempor sagittis non in urna. Vivamus quis feugiat quam, id rhoncus nunc. Etiam nibh justo, ullamcorper vitae nunc ut, scelerisque facilisis sapien. Integer eleifend eget justo tempor gravida. In dictum, dui quis faucibus bibendum, ligula nulla porttitor sapien, at pulvinar nisi odio non ex. Vivamus bibendum in diam eu iaculis. Duis tellus lorem, semper vel auctor vel, condimentum sed mauris. Nam dictum bibendum risus, at ultricies massa ultrices quis. Aenean hendrerit felis vitae sem porta consequat. Praesent auctor arcu sit amet purus scelerisque tincidunt. Morbi suscipit lacinia ligula, eu dapibus ligula consectetur ac. Vivamus sit amet dolor ut nibh suscipit ullamcorper. Integer volutpat mauris quis metus facilisis, nec convallis erat gravida. Suspendisse convallis eleifend tellus.</span>
                     </div>
+                    <%
+                        if (currentUser != null) {
+                    %>
                     <form action="CarController" method="get">
                         <input type="hidden" name="action" value="validateInfo">
                         <input type="hidden" name="carId" value="${car.carId}">
                         <input type="hidden" name="customerId" value="${customer.customerId}">
-                        <button type="submit">Buy Now</button>
+                        <button class="btn" type="submit">Buy Now</button>
                     </form>
-
+                    <%
+                    } else {
+                    %>
+                    <button class="btn" type="submit">Login to Buy now</button>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
         </div>
@@ -77,6 +98,5 @@
         <footer>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>
         </footer>
-
     </body>
 </html>

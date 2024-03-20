@@ -9,8 +9,6 @@ import dao.DAO;
 import dto.customer.Customer;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,32 +20,33 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RegisterController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         try {
             //id, customerName, password, phone, int age, address
-            String name = request.getParameter("name");
-            String password = request.getParameter("pwd");
-            String phone = request.getParameter("phone");
+            String name = req.getParameter("name");
+            String password = req.getParameter("pwd");
+            String phone = req.getParameter("phone");
             
-            String birthString = request.getParameter("birth");
-            LocalDate birth = LocalDate.parse(birthString, DateTimeFormatter.ISO_DATE);
+            String birthString = req.getParameter("birth");
+            LocalDate birth = LocalDate.parse(birthString);
 
 
-            String address = request.getParameter("address");
+            String address = req.getParameter("address");
             Customer customer = new Customer(name, password, phone, birth, address);
             DAO dao = new DAO();
             boolean checkInsert = dao.insert(customer);
             if (checkInsert) {
-                request.setAttribute("noti", "Save successfully");
-                response.sendRedirect("login.jsp");
+                req.setAttribute("noti", "REGISTER successfully, you can comeback to login page and login again");
             } else {
-                request.setAttribute("noti", "Save failed");
+                req.setAttribute("noti", "Register failed, contact us for more support!");
             }
         } catch (NumberFormatException e) {
-            request.setAttribute("noti", e);
+            req.setAttribute("noti", e);
         }
+        req.getRequestDispatcher("register.jsp").forward(req, resp);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

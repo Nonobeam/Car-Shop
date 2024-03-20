@@ -20,5 +20,6 @@
             <p>We appreciate your business. Enjoy your new car!</p>
             <a href="main.jsp" class="button">Back to Home</a>
         </div>
+        <p style="color:red;display:inline-block">${buyMessage}</p>
     </body>
 </html>

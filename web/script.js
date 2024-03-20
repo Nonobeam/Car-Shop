@@ -101,3 +101,17 @@ document.getElementById("closeNav").addEventListener("click", function () {
 function logout() {
     document.getElementById('logoutForm').submit();
 }
+
+$('#car-search-form').submit(function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    // Get the form data
+    var formData = $(this).serialize();
+
+    // Append additional query parameters
+    formData += '&minPrice=' + $('.min-input').val();
+    formData += '&maxPrice=' + $('.max-input').val();
+
+    // Redirect to the desired URL with the form data
+    window.location.href = 'main.jsp?' + formData;
+});

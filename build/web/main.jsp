@@ -47,9 +47,9 @@
                 </ul>
 
                 <%
-                    String userId = (String) request.getSession().getAttribute("customerId");
+                    Integer userId = (Integer) request.getSession().getAttribute("customerId");
 
-                    if (userId == null || userId.isEmpty()) {
+                    if (userId == null) {
                 %>
                 <div class="register-login">
                     <a href="register.jsp">Register</a>
@@ -59,7 +59,7 @@
                 <%
                 } else {
                     String currentUser = (String) request.getSession().getAttribute("customerName");
-                    String currentUserId = (String) request.getSession().getAttribute("customerId");
+                    Integer currentUserId = (Integer) request.getSession().getAttribute("customerId");
                 %>
                 <div class="customer-page">
                     <a class="customer-link" href="CustomerController?action=info&customerId=<%=currentUserId%>"><%= currentUser%></a>
@@ -72,14 +72,6 @@
                     }
                 %>
             </div>
-
-            <div class="search-box">
-                <form action="CarController" method="GET">
-                    <input type="hidden" name="action" value="search">
-                    <input type="text" name="query" placeholder="Search..">
-                    <button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
-                </form>
-            </div>
         </nav>
 
             
@@ -87,7 +79,7 @@
         <div class="content">
             <button id="closeNav">&#10006;</button>
             <h2>FIND YOUR CAR</h2>
-            <form id="car-search-form">
+            <form id="car-search-form" action="main.jsp">
                 <label for="brand">Brand:</label>
                 <select id="brand" name="brand">
                     <!-- Options for brands -->  
@@ -200,13 +192,26 @@
                 <tr>
                     <%
                         }
-                        String currentUserId = (String) request.getSession().getAttribute("customerId");
+                        Integer currentUserId = (Integer) request.getSession().getAttribute("customerId");
                     %>
                     <td>
+                        <%
+                            if (currentUserId == null){
+                        %>
                         <a href="CarController?action=info&carId=<%= car.getCarId()%>&customerId=<%=currentUserId%>" class="car-cell">
                             <img src="<%= car.getImageUrl()%>" alt="<%= car.getModel()%>">
                             <span><%= car.getModel()%> Info</span>
                         </a>
+                        <%
+                            }else{
+                        %>
+                        <a href="CarController?action=info&carId=<%= car.getCarId()%>&customerId=<%=currentUserId%>" class="car-cell">
+                            <img src="<%= car.getImageUrl()%>" alt="<%= car.getModel()%>">
+                            <span><%= car.getModel()%> Info</span>
+                        </a>
+                        <%
+                            }
+                        %>
                     </td>
                     <%
                         count++;

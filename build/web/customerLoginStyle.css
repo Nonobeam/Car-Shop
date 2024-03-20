@@ -40,6 +40,28 @@ a {
     margin: 15px 0;
 }
 
+#phone {
+  color: black;
+  outline: none;  
+  box-shadow: blue;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  transition: all .2s
+}
+
+#phone:focus {
+  outline: 0;
+}
+
+#phone:valid {
+  border-color: green;
+}
+
+#phone:focus:invalid {
+  border-color: red;
+}
+
+
 button {
     border-radius: 20px;
     border: 1px solid #FF4B2B;
@@ -87,7 +109,7 @@ form {
 
 input {
     background-color: #eee;
-    border: none;
+    border: 3px solid black;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;

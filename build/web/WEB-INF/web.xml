@@ -10,6 +10,10 @@
         <servlet-class>controller.MainController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>StaffController</servlet-name>
+        <servlet-class>controller.StaffController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.LoginController</servlet-class>
     </servlet>
@@ -42,6 +46,10 @@
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffController</servlet-name>
+        <url-pattern>/StaffController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>

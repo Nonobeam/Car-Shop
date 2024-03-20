@@ -16,20 +16,27 @@
                     </div>
                 </div>
             </div>
+            <span class="login">Already have an account? <a class="login-btn" href="login.jsp">Login</a></span>
             <div class="form-container log-in-container">
-<!--                id, name, age, address-->
-                <form action="RegisterController" method="POST">
+                <!--                id, name, age, address-->
+                <form action="RegisterController">
                     <h1>Sign up</h1>
-                    <span class="login">Already have an account? <a class="login-btn" href="login.jsp">Login</a></span>
                     Name: <input type="text" name="name" required=""><br>
                     Password: <input type="password" name="pwd" required=""><br>
-                    Phone: <input type="text" name="phone" required=""><br>                
+                    Phone: <input 
+                        id="phone" 
+                        name="phone"
+                        type="text" 
+                        required 
+                        pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                        placeholder="xxx-xxx-xxxx" />
+                    <br>                
                     Birth Date: <input type="date" name="birth" required=""><br>
                     Address: <input type="text" name="address" required=""><br>
                     <button type="submit" name="action" value="register">Sign up</button>
+                    <p style="position: relative; top: 30px;color:blue;display:inline-block;">${noti}</p>
                 </form>
             </div>
         </div>
-        <p style="margin-top:20px; margin-left: 200px;color:black;display:inline-block;">${noti}</p>
     </body>
 </html>

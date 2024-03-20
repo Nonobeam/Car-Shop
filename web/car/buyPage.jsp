@@ -70,17 +70,17 @@
                                 </table>
                             </div>
                         </div>
-                        <form action="CarController" method="get" class="btn">
+                        <form action="CarController">
                             <input type="hidden" name="action" value="buy">
                             <input type="hidden" name="carId" value="${car.carId}">
                             <input type="hidden" name="customerId" value="${customer.customerId}">
-                            <button type="submit">Submit</button>
+                            <button class="btn" type="submit" name="action" value="buy">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
+          
 
         <footer>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>

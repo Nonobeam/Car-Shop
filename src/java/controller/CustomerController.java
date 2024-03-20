@@ -7,10 +7,8 @@ package controller;
 
 import dao.DAO;
 import dao.CarDAO;
-import dto.car.Car;
 import dto.customer.Customer;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,8 +42,10 @@ public class CustomerController extends HttpServlet {
     private void info(HttpServletRequest req, HttpServletResponse resp, String customerId) throws ServletException, IOException {
         DAO dao = new DAO();
         CarDAO carDao = new CarDAO();
-        Customer customer = dao.getCustomerById(customerId);
-        customer.setInventoryList(carDao.getAllCarByCustomerId(customerId));
+        
+        int id = Integer.parseInt(customerId);
+        Customer customer = dao.getCustomerById(id);
+        customer.setInventoryList(carDao.getAllCarByCustomerId(id));
 
         HttpSession session = req.getSession();
         session.setAttribute("customer", customer);

@@ -41,6 +41,27 @@ a {
     margin: 15px 0;
 }
 
+#phone {
+  color: black;
+  outline: none;  
+  box-shadow: blue;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  transition: all .2s
+}
+
+#phone:focus {
+  outline: 0;
+}
+
+#phone:valid {
+  border-color: green;
+}
+
+#phone:focus:invalid {
+  border-color: red;
+}
+
 button {
     border-radius: 20px;
     border: 1px solid #FF4B2B;
@@ -57,7 +78,9 @@ button {
 
 .login {
     position: absolute;
-    top: 60px;
+    top: 30px;
+    right: 100px;
+    z-index: 5;
 }
 
 .login-btn {
@@ -79,7 +102,7 @@ form {
 
 input {
     background-color: #eee;
-    border: none;
+    border: 3px solid black;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
@@ -125,7 +148,7 @@ input {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;*/
-    background-image: url("https://s.aolcdn.com/commerce/blogcdn/slideshows/images/slides/399/473/0/S3994730/slug/l/auto-business-car-sale-deal-gesture-and-people-concept-close-1.jpg");
+    background-image: url("https://www.smmt.co.uk/wp-content/uploads/Keyless-Car-theft-image-one-1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 140px 0;
