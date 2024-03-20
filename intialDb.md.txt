@@ -26,7 +26,7 @@ CREATE TABLE Productor (
 -- Create Car Table
 CREATE TABLE Car (
     carId VARCHAR(5) PRIMARY KEY,
-    model VARCHAR(20),
+    model VARCHAR(50),
     price DECIMAL(10, 2),
     date DATE,
     VIN VARCHAR(17),
@@ -110,17 +110,17 @@ VALUES
 
 ('C004', 'Chevrolet Cruze', 28000.00, '2023-03-05', '1G1PE5SB1F7279839', 'White', 'GHI012', 'P003', 'Showroom D', 'https://thanhnien.mediacdn.vn/Uploaded/chicuong/2022_09_18/chevrolet-cruze-2023-4-ec17-2859.jpg', 6),
 
-('C005', 'BMW 3 Series', 40000.00, '2023-04-12', 'WBA3A5C59CF257691', 'Blue', 'JKL345', 'P002', 'Showroom E', 'https://cdn.tuoitre.vn/zoom/480_300/471584752817336320/2023/9/17/2023-bmw-3-series-114-1652798465-169489605368892395589-154-242-1244-1986-crop-1694896063470439662758.jpg', 4);
+('C005', 'BMW 3 Series', 40000.00, '2023-04-12', 'WBA3A5C59CF257691', 'Blue', 'JKL345', 'P002', 'Showroom E', 'https://cdn.tuoitre.vn/zoom/480_300/471584752817336320/2023/9/17/2023-bmw-3-series-114-1652798465-169489605368892395589-154-242-1244-1986-crop-1694896063470439662758.jpg', 4),
 
-('C006', 'Mercedes-BenzC-Class', 45000.00, '2023-05-20', 'WDDGF8AB6DR250749', 'Black', 'MNO678', 'P001', 'Showroom F', 'https://s1.cdn.autoevolution.com/images/gallery/MERCEDESBENZCCLASSSEDAN-6697_1.jpg', 7),
+('C006', 'Mercedes-BenzC', 45000.00, '2023-05-20', 'WDDGF8AB6DR250749', 'Black', 'MNO678', 'P001', 'Showroom F', 'https://www.mercedes-benz.com.vn/content/dam/hq/passengercars/buy/storefront/OG_Storefront_B2C_1-1.jpg', 7),
 
-('C007', 'Audi A4', 42000.00, '2023-06-10', 'WAUAFAFL1CN000414', 'White', 'PQR901', 'P003', 'Showroom G', 'https://www.cars-data.com/pictures/audi/audi-a4_2345_5.jpg', 6),
+('C007', 'Audi A4', 42000.00, '2023-06-10', 'WAUAFAFL1CN000414', 'White', 'PQR901', 'P003', 'Showroom G', 'https://files01.danhgiaxe.com/IferFf2IBCJhDWRBwjyCY7ahYJI=/fit-in/1280x0/20200514/danhgiaxe.com-audi-a4-2-2020-7-131635.jpg', 6),
 
-('C008', 'Volvo S60', 48000.00, '2023-07-15', 'LYV402FK8KB208565', 'Gray', 'STU123', 'P002', 'Showroom H', 'https://cdn.jdpower.com/Models/640x480/2019-Volvo-S60-Inscription.jpg', 4),
+('C008', 'Volvo S60', 48000.00, '2023-07-15', 'LYV402FK8KB208565', 'Gray', 'STU123', 'P002', 'Showroom H', 'https://volvo-vietnam.com/wp-content/uploads/Volvo-S60-2022-volvo-vietnam-27-1.jpg', 4),
 
-('C009', 'Lexus IS', 43000.00, '2023-08-20', 'JTHCF1D21F5020624', 'Silver', 'VWX456', 'P001', 'Showroom I', 'https://images.squarespace-cdn.com/content/v1/554b0970e4b0f4613ce2e49e/1621852177771-Q51YDD1VJYVUJ23AP7UV/ke17ZwdGBToddI8pDm48kA6WzeJfmeR6A6uGiDjss5BZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzUWi9GtyE6vR0Uhv8F3DAx2fT8-JTNDs6roaHUZ1cEBNpO5l2r08O5gPjs_1L3rY/IS200t.jpg?format=750w', 3),
+('C009', 'Lexus IS', 43000.00, '2023-08-20', 'JTHCF1D21F5020624', 'Silver', 'VWX456', 'P001', 'Showroom I', 'https://www.motortrend.com/uploads/2023/11/7-2024-Lexus-IS-500-front-view.jpg', 3),
 
-('C010', 'Tesla Model 3', 55000.00, '2023-09-25', '5YJ3E1EA1KF405384', 'Red', 'YZA789', 'P003', 'Showroom J', 'https://cdn.motor1.com/images/mgl/3Ge2z/s1/2022-tesla-model-3-performance.jpg', 5);
+('C010', 'Tesla Model 3', 55000.00, '2023-09-25', '5YJ3E1EA1KF405384', 'Red', 'YZA789', 'P003', 'Showroom J', 'https://images2.thanhnien.vn/528068263637045248/2023/9/2/tesla-model-3-2024-18-a708-16936389423651348740155.jpg', 5);
 
 GO
 
