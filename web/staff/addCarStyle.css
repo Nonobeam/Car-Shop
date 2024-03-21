@@ -10,11 +10,6 @@ body {
     margin: 0;
 }
 
-header {
-}
-
-.user-info {
-}
 
 .dropdownmenu {
     position: fixed;
@@ -123,17 +118,6 @@ li:hover ul#submenu {
     background-color: #000000;
 }
 
-.register-login {
-    padding-right: 30px;
-}
-
-.register-login a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
-
 .register-login a:hover {
     color: red; /* Change color on hover */
 }
@@ -184,117 +168,6 @@ li:hover ul#submenu {
     display: inline;
 }
 
-.edit-btn {
-    width: 100%;
-    color: whitesmoke;
-    text-align: right;
-}
-
-.container{
-    position: relative;
-    top: 200px;
-}
-
-.user-row {
-  margin-bottom: 14px;
-}
-
-.table-user-information > tbody > tr {
-  border-top: 1px solid #ccc;
-}
-
-.table-user-information > tbody > tr:first-child {
-  border-top: 0;
-}
-
-.table-user-information > tbody > tr > td {
-  border-top: 0;
-}
-
-.panel {
-  margin-top: 20px;
-}
-
-.cart {
-    margin-bottom: 150px;
-}
-
-.item{
-    height: 300px;
-}
-
-h1 {
-    margin-top: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container{
-    margin-bottom: 10px; /* Adjust the value to set the desired distance */
-    border-radius: 5px;
-    padding: 5px;
-    justify-content: center;
-    align-items: center;
-}
-
-.item:hover {
-    background-color: orange;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.item-row{
-    background-color: whitesmoke;
-    border-radius: 5px;
-    margin-bottom: 5px!important;
-    height: auto;
-}
-
-.row {
-    margin: 0;
-}
-
-.item-info img {
-    margin-top: 20px;
-    width: 300px;
-    height: auto;
-}
-
-.col-md-4 {
-    margin-top: 20px;
-}
-
-.item-price{
-    color: red; 
-    font-size: 25px;
-    font-weight: bold;
-    text-align: right;
-}
-
-.delivery{
-    color: black; 
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.factu {
-    text-align: left;
-    margin-left: 200px;
-}
-
-.manu {
-    text-align: right;
-    margin-right: 200px;
-}
-
-#footer-phone {
-    display: inline-block;
-}
-
-
-
-
 footer {
     background-color: #ff4b2b;
     color: white;
@@ -304,3 +177,5 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+

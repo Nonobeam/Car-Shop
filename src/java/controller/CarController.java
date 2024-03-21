@@ -47,6 +47,9 @@ public class CarController extends HttpServlet {
                 case "edit":
                     edit(request, response);
                     break;
+                case "add":
+                    add(request, response);
+                    break;
                 default:
                     // Do nothing or handle the default case as needed
                     break;
@@ -128,7 +131,7 @@ public class CarController extends HttpServlet {
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
-        String url = "staff/manageCar.jsp";
+        String url = "StaffController?action=search&query=";
 
         String carId = req.getParameter("carId");
         String model = req.getParameter("model");
@@ -147,14 +150,50 @@ public class CarController extends HttpServlet {
 
         Car car = new Car(carId, model, price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity);
 
-        String checkUpdate = carDao.updateCar(car);
+        boolean checkUpdate = carDao.updateCar(car);
 
-//        if (checkUpdate == false) {
-//            req.setAttribute("searchMessage", "Update fail with data" checkUpdate);
-//        } else {
-//            req.setAttribute("searchMessage", "Update successful with data" + carId + " " + model + " " + price + " " + date + " " + VIN + " " + colour + " " + licensePlate + " " + make + " " + location + " " + imageUrl + " " + quantity);
-//        }
-        req.setAttribute("searchMessage", checkUpdate + car.getCarId());
-        req.getRequestDispatcher("StaffController?action=search&query=").forward(req, resp);
+        if (checkUpdate == false){
+            req.setAttribute("searchMessage", "Update fail");
+        } else {
+            req.setAttribute("searchMessage", "Update successfully");
+        }
+        
+        req.getRequestDispatcher(url).forward(req, resp);
+
+        
+    }
+    
+    private void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+        String url = "staff/addCar.jsp";
+
+        String carId = req.getParameter("carId");
+        String model = req.getParameter("model");
+        String reqPrice = req.getParameter("price");
+        double price = Double.parseDouble(reqPrice);
+        String reqDate = req.getParameter("date");
+        LocalDate date = LocalDate.parse(reqDate);
+        String VIN = req.getParameter("VIN");
+        String colour = req.getParameter("colour");
+        String licensePlate = req.getParameter("licensePlate");
+        String make = req.getParameter("make");
+        String location = req.getParameter("location");
+        String imageUrl = req.getParameter("imageUrl");
+        String reqQuantity = req.getParameter("quantity");
+        int quantity = Integer.parseInt(reqQuantity);
+
+//String carId, String model, double price, LocalDate date, String VIN, String colour, String licensePlate, String make, String location, String imageUrl, int quantity
+        Car car = new Car(carId, model, price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity);
+
+        boolean checkAdd = carDao.createCar(car);
+
+        if (checkAdd == false){
+            req.setAttribute("addMessage", "Added fail" + checkAdd);
+        } else {
+            req.setAttribute("addMessage", "Added successfully");
+        }
+        req.getRequestDispatcher(url).forward(req, resp);
+
+        
     }
 }

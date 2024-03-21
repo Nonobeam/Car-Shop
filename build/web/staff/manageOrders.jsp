@@ -1,16 +1,39 @@
-<%@page import="java.util.List"%>
-<%@page import="dto.car.Car"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="dao.CarDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.JsonObject"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+
+<%
+    Gson gsonObj = new Gson();
+    Map<Object, Object> map = null;
+    List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
+
+    CarDAO carDao = new CarDAO();
+    List<String> cars = carDao.getCarsInInventory();
+    for (String c : cars) {
+        map = new HashMap<Object, Object>();
+        map.put("label", carDao.getCarById(c).getModel());
+        map.put("y", carDao.getCarById(c).getQuantity());
+        list.add(map);
+    }
+
+    String dataPoints = gsonObj.toJson(list);
+%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="staff/manageCarStyle.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>Manage Order</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="staff/pdfViewStyle.css">
         <script src="https://kit.fontawesome.com/05ec024090.js" crossorigin="anonymous"></script>
-        <title>Manage Car</title>
         <style>
             body, h1, h2, h3, p, ul, li {
                 margin: 0;
@@ -30,10 +53,6 @@
             .user-info {
             }
 
-            .search-box {
-                margin: 0 auto; /* Center the search box horizontally */
-            }
-
             .dropdownmenu {
                 position: fixed;
                 top: 0;
@@ -43,6 +62,30 @@
                 height: 110px;
                 width: 100%;
                 z-index: 9;
+            }
+
+            .search-box {
+                margin: 0 auto; /* Center the search box horizontally */
+            }
+
+            .search-box input[type="text"] {
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                font-size: 16px;
+                width: 1000px;
+            }
+
+            .search-btn{
+                border-radius: 5px;
+                border: none;
+                outline: none;
+                height: 40px;
+                width: 55px;
+                background: #ff4b2b;
+                position: relative;
+                left: -65px;
             }
 
             .navigation{
@@ -167,105 +210,21 @@
                 display: inline;
             }
 
-            .search-form{
-                position: relative;
-                top: 80px;
+            footer {
+                background-color: #ff4b2b;
+                color: white;
+                text-align: center;
+                padding: 10px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
             }
 
-            .manage-warehouse {
+            #chartContainer{
                 position: relative;
                 top: 100px;
-                padding-bottom: 100px;
-                text-align: center;
             }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-            }
-
-            .search-box{
-                width: 500px;
-            }
-
-            table {
-                font-size: 11px;
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
-
-            th, td {
-                padding: 1px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-
-            th {
-                background-color: #f2f2f2;
-            }
-
-            tr:hover {
-                background-color: #f5f5f5;
-            }
-
-            form {
-                text-align: center;
-                margin-top: 20px;
-            }
-
-            input[type="text"], input[type="submit"] {
-                padding: 8px;
-                margin: 5px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-
-            input[type="submit"] {
-                background-color: #4CAF50;
-                color: white;
-                cursor: pointer;
-            }
-
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-
-            .search-box {
-                margin: 0 auto; /* Center the search box horizontally */
-            }
-
-            .search-box input[type="text"] {
-                padding: 10px;
-                border-radius: 5px;
-                border: none;
-                outline: none;
-                background: whitesmoke;
-                font-size: 16px;
-                width: 500px;
-            }
-
-            .search-btn{
-                position: relative;
-                left: -65px;
-                top: -50px;
-                border-radius: 5px;
-                border: none;
-                outline: none;
-                height: 40px;
-                width: 55px;
-                background: #4169E1;
-
-            }
-
-            .search-box > form {
-                text-align: left;
-            }
-
-            .choosenRow:hover{
-                background: greenyellow;
-            }
-
+            
             .content {
                 position: fixed;
                 top: 0;
@@ -333,18 +292,6 @@
             .content a:hover {
                 background-color: darkorange;
             }
-
-
-            footer {
-                background-color: #ff4b2b;
-                color: white;
-                text-align: center;
-                padding: 10px;
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-            }
-
         </style>
     </head>
     <body>
@@ -367,13 +314,6 @@
                     </div>
                 </div>
             </div>
-            <div class="search-box">
-                <form action="StaffController" method="GET">
-                    <input type="hidden" name="action" value="search">
-                    <input type="text" name="query" placeholder="Search..">
-                    <button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
-                </form>
-            </div>
         </nav>
 
         <div>
@@ -381,73 +321,38 @@
         </div>
         <div class="content">
             <button id="closeNav">&#10006;</button>
-            <% session.removeAttribute("addMessage"); %>
-            <a href="staff/addCar.jsp">Add Car</a>
-            <a href="staff/manageOrders.jsp">Manage Orders</a>
+            <a href="http://localhost:8085/carManagement/StaffController?action=search&query=">Manage Car</a>
+            <a href="http://localhost:8085/carManagement/staff/addCar.jsp">Add Car</a>
         </div>
 
-        <%
-            List<Car> cars = (List<Car>) request.getAttribute("search");
-        %>
-
-        <p style="position: relative;top: 110px;left: 200px;color: black;display:inline-block">${searchMessage}</p>
-
-
-        <div class="manage-warehouse">
-            <table>
-                <tr>
-                    <th>NO.</th>
-                    <th>Car ID</th>
-                    <th>Model</th>
-                    <th>Date</th>
-                    <th>VIN</th>
-                    <th>Colour</th>
-                    <th>License Plate</th>
-                    <th>Make</th>
-                    <th>Location</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Image</th>
-                    <th>Edit</th>
-                </tr>
-                <%
-                    int count = 0;
-                    if (cars != null) {
-                        for (Car c : cars) {
-                            count++;
-                %>
-                <form action="StaffController">
-                    <tr class="choosenRow">
-                        <td><%= count%></td>
-                        <td><input type="text" name="carId" value="<%= c.getCarId()%>"></td>
-                        <td><input type="text" name="model" value="<%= c.getModel()%>"></td>
-                        <td><input type="text" name="date" value="<%= c.getDate()%>"></td>
-                        <td><input type="text" name="VIN" value="<%= c.getVIN()%>"></td>
-                        <td><input type="text" name="colour" value="<%= c.getColour()%>"></td>
-                        <td><input type="text" name="licensePlate" value="<%= c.getLicensePlate()%>"></td>
-                        <td><input type="text" name="make" value="<%= c.getMake()%>"></td>
-                        <td><input type="text" name="location" value="<%= c.getLocation()%>"></td>
-                        <td><input type="text" name="price" value="<%= c.getPrice()%>"></td>
-                        <td><input type="text" name="quantity" value="<%= c.getQuantity()%>"></td>
-                        <td><input type="text" name="imageUrl" value="<%= c.getImageUrl()%>"></td>
-                        <td>
-                            <input type="submit" name="action" value="edit">
-                        </td>
-                    </tr>
-                </form>
-                <%
-                        }
-                    }
-                %>
-            </table>
-        </div>
-
+        <div id="chartContainer" style="height: 570px; width: 100%;"></div>
+        <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
         <footer>
             <p>&copy; 2024 Nonobeam page. All rights reserved.</p>
         </footer>
 
-        <script>
+        <script type="text/javascript">
+            window.onload = function () {
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light2", // "light1", "dark1", "dark2"
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                        text: "Car Orders"
+                    },
+                    data: [{
+                            type: "pie",
+                            toolTipContent: "<b>{label}</b>: {y}",
+                            indexLabelFontSize: 16,
+                            indexLabel: "{label} - {y}",
+                            dataPoints: <%out.print(dataPoints);%>
+                        }]
+                });
+                chart.render();
+            };
+            
             document.getElementById("openNav").addEventListener("click", function () {
                 document.querySelector(".content").classList.add("open");
             });

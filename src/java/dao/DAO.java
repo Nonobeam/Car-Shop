@@ -2,6 +2,7 @@ package dao;
 
 import dto.customer.Customer;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class DAO {
     Connection connection;
     PreparedStatement pre;
     ResultSet rs;
-    
+
     //-----------------USER-----------------
     //Check user LOGIN 
     public Customer checkCustomerLogin(String phone, String password) {
@@ -99,6 +100,108 @@ public class DAO {
         return customer;
     }
 
+    public String getFactuDate(String carId) {
+        String result = "";
+        String sql = "SELECT i.factuDate FROM Inventory i\n"
+                + "INNER JOIN InventoryCar ic ON i.inventoryId = ic.inventoryId\n"
+                + "INNER JOIN Car c ON ic.carId = c.carId\n"
+                + "WHERE c.carId = ?";
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+            pre.setString(1, carId);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                result = rs.getString("factuDate");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            result = ex.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                result += e.getMessage();
+            }
+        }
+        return result;
+    }
+    
+    public String getManuDate(String carId) {
+        String result = "";
+        String sql = "SELECT i.manuDate FROM Inventory i\n"
+                + "INNER JOIN InventoryCar ic ON i.inventoryId = ic.inventoryId\n"
+                + "INNER JOIN Car c ON ic.carId = c.carId\n"
+                + "WHERE c.carId = ?";
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+            pre.setString(1, carId);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                result = rs.getString("manuDate");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            result = ex.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                result += e.getMessage();
+            }
+        }
+        return result;
+    }
+    
+    public boolean editCustomer(int customerId, String customerName, String phone, String birth, String address) {
+        boolean checkUpdate = false;
+        String sql = "UPDATE Customer\n"
+                + "SET customerName = ?, phone = ?, address = ?, birth = ?\n"
+                + "WHERE customerId = ?";
+
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+            pre.setString(1, customerName);
+            pre.setString(2, phone);
+            pre.setString(3, address);
+            pre.setDate(4, java.sql.Date.valueOf(LocalDate.parse(birth)));
+            pre.setInt(5, customerId);
+
+            checkUpdate = pre.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException | IllegalArgumentException ex) {
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return checkUpdate;
+    }
+
     //id, customerName, password, phone, birth, address
     public Customer createCustomerFromResultSet(ResultSet rs) throws SQLException {
         int customerId = rs.getInt("customerId");
@@ -110,5 +213,4 @@ public class DAO {
 
         return new Customer(customerId, customerName, password, phone, birth, address);
     }
-    
 }

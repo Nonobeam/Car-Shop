@@ -184,6 +184,12 @@ li:hover ul#submenu {
     display: inline;
 }
 
+.edit-btn {
+    width: 100%;
+    color: whitesmoke;
+    text-align: right;
+}
+
 .container{
     position: relative;
     top: 200px;
@@ -210,41 +216,84 @@ li:hover ul#submenu {
 }
 
 .cart {
-    padding-top: 200px;
-    text-align: center;
+    margin-bottom: 150px;
 }
 
-.cart-table {
-    width: 100%;
-    border-collapse: collapse;
+.item{
+    height: 300px;
+}
+
+h1 {
+    margin-top: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    margin-bottom: 10px; /* Adjust the value to set the desired distance */
+    border-radius: 5px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.item:hover {
+    background-color: orange;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item-row{
+    background-color: whitesmoke;
+    border-radius: 5px;
+    margin-bottom: 5px!important;
+    height: auto;
+}
+
+.row {
+    margin: 0;
+}
+
+.item-info img {
+    margin-top: 20px;
+    width: 300px;
+    height: auto;
+}
+
+.col-md-4 {
     margin-top: 20px;
 }
 
-.cart-table, .cart-table th, .cart-table td {
-    border: 1px solid #ddd;
+.item-price{
+    color: red; 
+    font-size: 25px;
+    font-weight: bold;
+    text-align: right;
 }
 
-.cart-table th, .cart-table td {
-    padding: 8px;
+.delivery{
+    color: black; 
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.factu {
     text-align: left;
+    margin-left: 200px;
 }
 
-.cart-table th {
-    background-color: #f2f2f2;
-    color: #333;
-}
-
-.cart-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.cart-table tr:hover {
-    background-color: #f2f2f2;
+.manu {
+    text-align: right;
+    margin-right: 200px;
 }
 
 #footer-phone {
     display: inline-block;
 }
+
+
+
 
 footer {
     background-color: #ff4b2b;

@@ -31,6 +31,8 @@ public class StaffController extends HttpServlet {
             url = CAR_CONTROLLER;
         } else if ("EDIT".equalsIgnoreCase(action)) {
             url = CAR_CONTROLLER;
+        } else if ("MANAGE".equalsIgnoreCase(action)){
+            url = MAIN;
         }
 
         req.getRequestDispatcher(url).forward(req, resp);

@@ -13,7 +13,7 @@ package dto.car;
 import java.time.LocalDate;
 
 
-//carId, model, price, date, VIN, colour, licensePlate, make, Location, quantity
+//String carId, String model, double price, LocalDate date, String VIN, String colour, String licensePlate, String make, String location, String imageUrl, int quantity
 public class Car {
     private String carId;
     private String model;

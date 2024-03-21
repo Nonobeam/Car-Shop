@@ -1,3 +1,4 @@
+<%@page import="dao.DAO"%>
 <%@page import="dao.CarDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="dto.car.Car"%>
@@ -11,6 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="customer/customerInforStyle.css">
         <script src="https://kit.fontawesome.com/05ec024090.js" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
         <header>
@@ -41,6 +43,10 @@
 
                         <div class="panel-heading">
                             <h3 class="panel-title"><a class="customer-link">${customer.customerName}</a></h3>
+                            <%
+                                session.removeAttribute("editMessage");
+                            %>
+                            <a class="edit-btn" href="customer/customerEdit.jsp">Edit <i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i></a>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -76,16 +82,15 @@
             </div>
         </div>
 
+        <h1>Your shopping history</h1>
+        
         <div class="cart">
             <%
                 Integer customerId = (Integer) request.getSession().getAttribute("customerId");
 
-                CarDAO dao = new CarDAO();
-                List<Car> cars = dao.getAllCarByCustomerId(customerId);
+                CarDAO carDao = new CarDAO();
+                List<Car> cars = carDao.getAllCarByCustomerId(customerId);
             %>
-
-            <h1>Your shopping history</h1>
-
             <%
                 // Check if there are cars for the customer
                 if (cars.isEmpty()) {
@@ -94,35 +99,33 @@
             <%
             } else {
             %>
-            <table class="cart-table" border="1">
-                <tr>
-                    <th>Model</th>
-                    <th>Date</th>
-                    <th>VIN</th>
-                    <th>Colour</th>
-                    <th>License Plate</th>
-                    <th>Make</th>
-                    <th>Location</th>
-                    <th>Price/Car</th>
-                </tr>
-
+            <div>
                 <%
                     for (Car car : cars) {
                 %>
-                <tr>
-                    <td><%= car.getModel()%></td>
-                    <td><%= car.getDate()%></td>
-                    <td><%= car.getVIN()%></td>
-                    <td><%= car.getColour()%></td>
-                    <td><%= car.getLicensePlate()%></td>
-                    <td><%= car.getMake()%></td>
-                    <td><%= car.getLocation()%></td>
-                    <td><%= car.getPrice()%></td>
-                </tr>
+                <div class="item container">
+                    <div class="item-info item-row row">
+                        <img class="col-md-4" src="<%= car.getImageUrl() %>" alt="Car Image">
+                        <h3 class="col-md-4">Car Model: <%= car.getModel() %></h3>
+                        <h4 class="col-md-4">Car Color: <%= car.getColour() %></h4>
+                    </div>
+                    <div class="item-price item-row">
+                        <p class="">Price: $ <%= car.getPrice() %> / unit</p>
+                    </div>
+                    <% 
+                        DAO dao = new DAO();
+                        String factuDate = dao.getFactuDate(car.getCarId());
+                        String manuDate = dao.getManuDate(car.getCarId());
+                    %>
+                    <div class="delivery item-row">
+                        <p class="factu">Buy Date <%= factuDate %></p>
+                        <p class="manu">Deliver Date <%= manuDate %></p>
+                    </div>
+                </div>
                 <%
                     }
                 %>
-            </table>
+            </div>
             <%
                 }
             %>

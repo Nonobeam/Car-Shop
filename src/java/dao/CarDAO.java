@@ -23,7 +23,7 @@ public class CarDAO {
     Connection connection;
     PreparedStatement pre;
     ResultSet rs;
-    
+
     public static int generateRandomInt() {
         int min = 100000000;
         int max = 2147483647;
@@ -37,11 +37,11 @@ public class CarDAO {
         boolean checkInsertInventoryCar = false;
         boolean checkUpdate = false;
         boolean checkInsertInventory = false;
-        
+
         String error = "";
-        
-        int inventoryId =  generateRandomInt();
-        
+
+        int inventoryId = generateRandomInt();
+
         String insertOrdersSQL = "INSERT INTO Orders (customerId, inventoryId) VALUES (?, ?)";
         String insertInventoryCarSQL = "INSERT INTO InventoryCAR (inventoryId, carId) VALUES (?, ?)";
         String updateCarSQL = "UPDATE Car SET quantity = quantity - 1 WHERE carId = ?";
@@ -51,9 +51,8 @@ public class CarDAO {
             connection = DBUtils.getConnection();
             //Wait for rollback if need
             connection.setAutoCommit(false);
-            
-            
-            LocalDate manu = LocalDate.now(); 
+
+            LocalDate manu = LocalDate.now();
             LocalDate factu = LocalDate.now().plusDays(10);
             // Insert into Inventory table
             pre = connection.prepareStatement(insertInventorySQL);
@@ -76,19 +75,19 @@ public class CarDAO {
             pre.setString(2, carId);
             checkInsertInventoryCar = pre.executeUpdate() > 0;
             pre.close();
-            
+
             // Update Car quantity to decrease 1 
             pre = connection.prepareStatement(updateCarSQL);
             pre.setString(1, carId);
             checkUpdate = pre.executeUpdate() > 0;
             pre.close();
-            
+
             connection.commit();
         } catch (ClassNotFoundException | SQLException ex) {
-            
+
             // Return error
             error = ex.getMessage();
-            
+
             // Rollback the transaction in case of an exception
             try {
                 if (connection != null) {
@@ -108,15 +107,16 @@ public class CarDAO {
             } catch (SQLException e) {
             }
         }
-        
+
 //        return checkInsertOrders && checkInsertInventoryCar && checkInsertInventory && checkUpdate;
         return error;
     }
 
     //Make new Car
     public boolean createCar(Car newCar) {
+        String error = "";
         boolean checkInsert = false;
-        String sql = "INSERT INTO Car (carId, model, date, VIN, colour, licensePlate, make, location, price, image, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Car (carId, model, price, date, VIN, colour, licensePlate, make, location, imageUrl, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             connection = DBUtils.getConnection();
@@ -124,20 +124,20 @@ public class CarDAO {
 
             pre.setString(1, newCar.getCarId());
             pre.setString(2, newCar.getModel());
+            pre.setDouble(3, newCar.getPrice());
             java.sql.Date sqlDate = java.sql.Date.valueOf(newCar.getDate());
-            pre.setDate(3, sqlDate);
-            pre.setString(4, newCar.getVIN());
-            pre.setString(5, newCar.getColour());
-            pre.setString(6, newCar.getLicensePlate());
-            pre.setString(7, newCar.getMake());
-            pre.setString(8, newCar.getLocation());
-            pre.setDouble(9, newCar.getPrice());
-            pre.setInt(10, newCar.getQuantity());
-
-            pre.executeUpdate();
+            pre.setDate(4, sqlDate);
+            pre.setString(5, newCar.getVIN());
+            pre.setString(6, newCar.getColour());
+            pre.setString(7, newCar.getLicensePlate());
+            pre.setString(8, newCar.getMake());
+            pre.setString(9, newCar.getLocation());
+            pre.setString(10, newCar.getImageUrl());
+            pre.setInt(11, newCar.getQuantity());
 
             checkInsert = pre.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
+            error = ex.getMessage();
         } finally {
             try {
                 if (pre != null) {
@@ -153,9 +153,8 @@ public class CarDAO {
         return checkInsert;
     }
 
-    
     //Update a Car with Car
-    public String updateCar(Car updatedCar) {
+    public boolean updateCar(Car updatedCar) {
         String error = "";
         boolean checkUpdate = false;
         String sql = "UPDATE Car SET model = ?, date = ?, VIN = ?, colour = ?, licensePlate = ?, make = ?, location = ?, price = ?, imageUrl = ?, quantity = ? WHERE carId = ?";
@@ -193,7 +192,7 @@ public class CarDAO {
             }
         }
 
-        return error;
+        return checkUpdate;
     }
 
     //Fileter Car with Brand, Location, Date, Price, Price
@@ -476,7 +475,7 @@ public class CarDAO {
             while (rs.next()) {
                 Car car = createCarFromResultSet(rs);
                 list.add(car);
-            } 
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             error = ex.getMessage();
         } finally {
@@ -572,6 +571,38 @@ public class CarDAO {
             while (rs.next()) {
                 Car car = createCarFromResultSet(rs);
                 list.add(car);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return list;
+    }
+
+    //Get Cars in Inventory
+    public List<String> getCarsInInventory() {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.carId\n"
+                + "FROM Car c\n"
+                + "JOIN InventoryCar ic ON c.carId = ic.carId;";
+        try {
+            connection = DBUtils.getConnection();
+            pre = connection.prepareStatement(sql);
+
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getString("carId"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
         } finally {

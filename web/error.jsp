@@ -4,7 +4,7 @@
     Author     : Nonobeam <https://github.com/Nonobeam>
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="error.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +12,8 @@
         <title>ERROR PAGE</title>
     </head>
     <body>
-        <span style="color:red">${message}</span>
+        <% if (response.getStatus() == 500) {%>
+        <font color="red">Error: <%=exception.getMessage()%></font><br>
+
     </body>
 </html>

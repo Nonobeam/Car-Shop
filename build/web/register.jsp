@@ -4,7 +4,7 @@
     <head>
         <link rel="stylesheet" href="registerStyle.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Register</title>
+        <title>Register Page</title>
     </head>
     <body>
         <div class="container" id="container">

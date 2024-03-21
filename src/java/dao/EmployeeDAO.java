@@ -17,13 +17,13 @@ import util.DBUtils;
  *
  * @author Nonobeam <https://github.com/Nonobeam>
  */
-
 //employeeId, employeeName password, phone, birth, role
 public class EmployeeDAO {
+
     Connection connection;
     PreparedStatement pre;
     ResultSet rs;
-    
+
     //-----------------USER-----------------
     //Check user LOGIN 
     public Employee checkEmployeeLogin(String employeeId, String password) {
